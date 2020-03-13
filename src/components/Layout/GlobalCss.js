@@ -2,7 +2,6 @@ import { css } from "@emotion/core"
 
 export const globalCss = theme => css`
   html {
-    font-family: sans-serif;
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
     font: 112.5%/1.45em georgia, serif;
@@ -10,6 +9,9 @@ export const globalCss = theme => css`
     overflow-y: scroll;
   }
   body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol";
     background-color: ${theme.color.background};
     color: ${theme.color.copy};
     margin: 0;

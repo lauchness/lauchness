@@ -35,6 +35,12 @@ const darkMode = {
   background: baseColors.darkGray,
 }
 
+const layers = {
+  bottom: 0,
+  mid: 50,
+  top: 100,
+}
+
 export default dark => {
   const dynamicColors = dark ? darkMode : lightMode
   return {
@@ -43,6 +49,7 @@ export default dark => {
       ...dynamicColors,
     },
     font,
+    layers,
   }
 }
 
