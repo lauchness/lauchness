@@ -14,7 +14,7 @@ import { Close, Hamburger, Moon, Sun } from "../Icons"
 
 const Header = ({ siteTitle, darkMode, setDarkMode }) => {
   const {
-    color: { white },
+    color: { lightGray, darkGray },
   } = useTheme()
 
   const [menuOpen, setMenuOpen] = useState(false)
@@ -30,12 +30,22 @@ const Header = ({ siteTitle, darkMode, setDarkMode }) => {
         <h1>
           <StyledLink to="/">{siteTitle}</StyledLink>
         </h1>
-        <StyledButton type="button" onClick={() => setDarkMode(!darkMode)}>
-          {darkMode ? <Sun fill={white} /> : <Moon fill={white} />}
-        </StyledButton>
-        <StyledButton type="button" onClick={() => setMenuOpen(!menuOpen)}>
-          {menuOpen ? <Close fill={white} /> : <Hamburger fill={white} />}
-        </StyledButton>
+        <div>
+          <StyledButton type="button" onClick={() => setDarkMode(!darkMode)}>
+            {darkMode ? (
+              <Moon fill={darkGray} bounce={true} />
+            ) : (
+              <Sun fill={lightGray} bounce={true} />
+            )}
+          </StyledButton>
+          <StyledButton type="button" onClick={() => setMenuOpen(!menuOpen)}>
+            {menuOpen ? (
+              <Close fill={lightGray} />
+            ) : (
+              <Hamburger fill={lightGray} />
+            )}
+          </StyledButton>
+        </div>
       </StyledHeader>
       <StyledNav
         menuOpen={menuOpen}

@@ -13,6 +13,8 @@ export const StyledButton = styled.button`
   width: 3rem;
   border: none;
   background-color: transparent;
+  padding: 0.1rem;
+  margin: 0 0.25rem;
 `
 export const Wrapper = styled.div`
   position: sticky;
@@ -32,7 +34,7 @@ export const StyledHeader = styled.header`
   align-items: center;
 
   & h1 {
-    margin: 0;
+    margin: 0 0.5rem;
   }
 `
 
