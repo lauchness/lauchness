@@ -6,14 +6,16 @@ import Layout from "../components/Layout"
 import Image from "../components/Image"
 import SEO from "../components/seo"
 import { StyledHeading } from "../components/Typography"
+import Card from '../components/Card'
 
 const StyledBanner = styled.section`
+  width: 100%;
   display: flex;
   flex-direction: column;
-  max-width: 1000px;
-  margin: 0 auto;
+  margin: 0;
   justify-content: center;
   align-items: center;
+  padding: 1.5rem 1rem;
 
   @media screen and (min-width: 800px) {
     flex-direction: row-reverse;
@@ -31,8 +33,10 @@ const IndexPage = () => (
         Enjoy!
       </StyledHeading>
     </StyledBanner>
+    <Card title="test casrd" copy="lorem ipsum sd;lfajsd;lfadsfjl;asdjfl;ajsdkl;fjadls;fj;ladskjf;laskdfjl;askdjf"  />
     <Link to="/page-2/">Go to page 2</Link>
   </Layout>
 )
+
 
 export default IndexPage

@@ -19,7 +19,7 @@ import { ImageWrapper } from "./image.styled"
 const Image = filename => {
   const data = useStaticQuery(graphql`
     query {
-      placeholderImage: file(relativePath: { eq: "lauchie.jpg" }) {
+      placeholderImage: file(relativePath: { eq: "lauchie.png" }) {
         childImageSharp {
           fluid(maxWidth: 300) {
             ...GatsbyImageSharpFluid
@@ -34,10 +34,6 @@ const Image = filename => {
       <Img
         fadeIn={true}
         fluid={data.placeholderImage.childImageSharp.fluid}
-        style={css`
-          overflow: hidden;
-          border-radius: 50%;
-        `}
       />
     </ImageWrapper>
   )

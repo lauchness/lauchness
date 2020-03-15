@@ -7,10 +7,10 @@ import {
   Wrapper,
   StyledHeader,
   StyledLink,
-  StyledButton,
   StyledNav,
 } from "./Header.styled"
 import { Close, Hamburger, Moon, Sun } from "../Icons"
+import Button from '../Button'
 
 const Header = ({ siteTitle, darkMode, setDarkMode }) => {
   const {
@@ -31,25 +31,24 @@ const Header = ({ siteTitle, darkMode, setDarkMode }) => {
           <StyledLink to="/">{siteTitle}</StyledLink>
         </h1>
         <div>
-          <StyledButton type="button" onClick={() => setDarkMode(!darkMode)}>
+          <Button type="button" onClick={() => setDarkMode(!darkMode)}>
             {darkMode ? (
               <Moon fill={darkGray} bounce={true} />
             ) : (
               <Sun fill={lightGray} bounce={true} />
             )}
-          </StyledButton>
-          <StyledButton type="button" onClick={() => setMenuOpen(!menuOpen)}>
+          </Button>
+          <Button type="button" onClick={() => setMenuOpen(!menuOpen)}>
             {menuOpen ? (
               <Close fill={lightGray} />
             ) : (
               <Hamburger fill={lightGray} />
             )}
-          </StyledButton>
+          </Button>
         </div>
       </StyledHeader>
       <StyledNav
-        menuOpen={menuOpen}
-        ariaHidden={!menuOpen}
+        aria-hidden={!menuOpen}
         style={{ ...navProps }}
       >
         <ul>
