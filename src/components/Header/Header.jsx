@@ -14,7 +14,7 @@ import Button from '../Button'
 
 const Header = ({ siteTitle, darkMode, setDarkMode }) => {
   const {
-    color: { lightGray, darkGray },
+    color: { lightGray },
   } = useTheme()
 
   const [menuOpen, setMenuOpen] = useState(false)
@@ -33,7 +33,7 @@ const Header = ({ siteTitle, darkMode, setDarkMode }) => {
         <div>
           <Button type="button" onClick={() => setDarkMode(!darkMode)}>
             {darkMode ? (
-              <Moon fill={darkGray} bounce={true} />
+              <Moon fill={lightGray} bounce={true} />
             ) : (
               <Sun fill={lightGray} bounce={true} />
             )}

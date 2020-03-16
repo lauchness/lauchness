@@ -2,7 +2,7 @@ import styled from "@emotion/styled"
 import { Link } from "gatsby"
 import { animated } from "react-spring"
 
-const linearBackground = props => `linear-gradient(.25turn, ${props.theme.color.darkGray}, 5%, ${props.theme.color.purple})`
+const linearBackground = props => `linear-gradient(.25turn, ${props.theme.color.black}, 5%, ${props.theme.color.darkGray})`
 
 export const StyledLink = styled(Link)`
   font-weight: bold;

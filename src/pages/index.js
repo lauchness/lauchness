@@ -16,6 +16,8 @@ const StyledBanner = styled.section`
   justify-content: center;
   align-items: center;
   padding: 1.5rem 1rem;
+  background-color: ${props => props.theme.color.purple};
+  color: ${props => props.theme.color.white};
 
   @media screen and (min-width: 800px) {
     flex-direction: row-reverse;
