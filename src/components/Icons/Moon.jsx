@@ -2,7 +2,7 @@ import React from "react"
 import { animated, useSpring } from "react-spring"
 
 const Moon = ({ fill, bounce }) => {
-  const color = fill ? fill : "#000"
+  const color = fill ? fill : "currentColor"
   const animateProps = useSpring({
     from: { transform: `scale(${bounce ? "0" : "1"})` },
     to: { transform: "scale(1)" },

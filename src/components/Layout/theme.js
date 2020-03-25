@@ -24,6 +24,9 @@ const baseColors = {
   lightPurple: "#AEA4BF",
   purple: "#8F6593",
   outline: "#8F6593",
+  twitterBlue: "#1da1f2",
+  linkedInBlue: "#0077b5",
+  gitHubWhite: "#FFFFFF",
 }
 
 const lightMode = {
@@ -54,19 +57,10 @@ export default dark => {
     color: {
       ...baseColors,
       ...dynamicColors,
+      linearBackground: `linear-gradient(.25turn, ${baseColors.black}, 5%, ${baseColors.darkGray})`,
     },
     font,
     layers,
     units,
   }
 }
-
-const breakpoints = { small: 576, medium: 768, large: 992, extraLarge: 1200 }
-
-export const mediaQuery = Object.keys(breakpoints).reduce(
-  (acc, key) => ({
-    ...acc,
-    [key]: `@media (min-width: ${breakpoints[key]}px)`,
-  }),
-  {}
-)

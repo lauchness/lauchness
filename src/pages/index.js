@@ -6,7 +6,8 @@ import Layout from "../components/Layout"
 import Image from "../components/Image"
 import SEO from "../components/seo"
 import { StyledHeading } from "../components/Typography"
-import Card from '../components/Card'
+import Card from "../components/Card"
+import { mediaQuery } from "../utilities/style"
 
 const StyledBanner = styled.section`
   width: 100%;
@@ -19,8 +20,12 @@ const StyledBanner = styled.section`
   background: ${props => props.theme.color.purple};
   color: ${props => props.theme.color.white};
 
-  @media screen and (min-width: 800px) {
+  ${mediaQuery()["medium"]} {
     flex-direction: row-reverse;
+
+    & ${StyledHeading} {
+      padding-right: 2rem;
+    }
   }
 `
 
@@ -30,15 +35,17 @@ const IndexPage = () => (
     <StyledBanner>
       <Image />
       <StyledHeading>
-        Howdy folks, I'm Lauchlan Chisholm. This is my personal web app and
-        blog, I'll be using it to experiment with and write about fun stuff.
-        Enjoy!
+        Hello, I'm Lauchlan Chisholm. <br />
+        I'm a programmer and musician, and I hope to use this site to write
+        about lots of fun stuff. Enjoy!
       </StyledHeading>
     </StyledBanner>
-    <Card title="test casrd" copy="lorem ipsum sd;lfajsd;lfadsfjl;asdjfl;ajsdkl;fjadls;fj;ladskjf;laskdfjl;askdjf"  />
+    <Card
+      title="test casrd"
+      copy="lorem ipsum sd;lfajsd;lfadsfjl;asdjfl;ajsdkl;fjadls;fj;ladskjf;laskdfjl;askdjf"
+    />
     <Link to="/page-2/">Go to page 2</Link>
   </Layout>
 )
-
 
 export default IndexPage

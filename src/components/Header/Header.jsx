@@ -7,10 +7,11 @@ import {
   Wrapper,
   StyledHeader,
   StyledNav,
+  ButtonWrapper,
 } from "./Header.styled"
-import Link from '../Link'
+import Link from "../Link"
 import { Close, Hamburger, Moon, Sun } from "../Icons"
-import Button from '../Button'
+import Button from "../Button"
 
 const Header = ({ siteTitle, darkMode, setDarkMode }) => {
   const {
@@ -30,7 +31,7 @@ const Header = ({ siteTitle, darkMode, setDarkMode }) => {
         <h1>
           <Link to="/">{siteTitle}</Link>
         </h1>
-        <div>
+        <ButtonWrapper>
           <Button type="button" onClick={() => setDarkMode(!darkMode)}>
             {darkMode ? (
               <Moon fill={lightGray} bounce={true} />
@@ -45,12 +46,9 @@ const Header = ({ siteTitle, darkMode, setDarkMode }) => {
               <Hamburger fill={lightGray} />
             )}
           </Button>
-        </div>
+        </ButtonWrapper>
       </StyledHeader>
-      <StyledNav
-        aria-hidden={!menuOpen}
-        style={{ ...navProps }}
-      >
+      <StyledNav aria-hidden={!menuOpen} style={{ ...navProps }}>
         <ul>
           <h2>
             <Link to="/blog" tabIndex={menuTabIndex}>

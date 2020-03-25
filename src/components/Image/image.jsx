@@ -1,7 +1,6 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import Img from "gatsby-image"
-import { css } from "@emotion/core"
 
 import { ImageWrapper } from "./image.styled"
 
@@ -31,10 +30,7 @@ const Image = filename => {
 
   return (
     <ImageWrapper>
-      <Img
-        fadeIn={true}
-        fluid={data.placeholderImage.childImageSharp.fluid}
-      />
+      <Img fadeIn={true} fluid={data.placeholderImage.childImageSharp.fluid} />
     </ImageWrapper>
   )
 }
