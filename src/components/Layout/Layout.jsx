@@ -12,6 +12,7 @@ import { Global } from "@emotion/core"
 import { ThemeProvider } from "emotion-theming"
 
 import Header from "../Header"
+import Footer from "../Footer"
 import { ContentWrapper } from "./Layout.styled"
 import { globalCss } from "./GlobalCss"
 import getTheme from "./theme"
@@ -41,8 +42,8 @@ const Layout = ({ children }) => {
         />
         <ContentWrapper>
           <main>{children}</main>
-          <footer>© {new Date().getFullYear()}, Lauchness</footer>
         </ContentWrapper>
+        <Footer />
       </ThemeProvider>
     </>
   )

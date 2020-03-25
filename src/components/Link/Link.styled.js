@@ -1,13 +1,13 @@
 import styled from "@emotion/styled"
+import { Link } from "gatsby"
 
-export const StyledButton = styled.button`
+export const StyledLink = styled(Link)`
+  padding: 0.5rem;
+  font-weight: bold;
+  color: ${props => props.theme.color.white};
+  text-decoration: none;
   border: none;
-  border-radius: 4px;
-  background-color: transparent;
-  padding: 0.1rem;
-  margin: 0 0.25rem;
-  cursor: pointer;
-  box-shadow: 2px 2px rgba(0, 0, 0, 0.2);
+  border-radius: ${props => props.theme.units.borderRadius};
 
   &:hover {
     outline: none;
@@ -24,10 +24,5 @@ export const StyledButton = styled.button`
   &:active {
     transform: translate3d(0, 2px, 0);
     box-shadow: none;
-  }
-
-  & svg {
-    min-height: 3rem;
-    min-width: 3rem;
   }
 `

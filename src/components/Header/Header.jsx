@@ -6,9 +6,9 @@ import { useSpring } from "react-spring"
 import {
   Wrapper,
   StyledHeader,
-  StyledLink,
   StyledNav,
 } from "./Header.styled"
+import Link from '../Link'
 import { Close, Hamburger, Moon, Sun } from "../Icons"
 import Button from '../Button'
 
@@ -28,7 +28,7 @@ const Header = ({ siteTitle, darkMode, setDarkMode }) => {
     <Wrapper>
       <StyledHeader>
         <h1>
-          <StyledLink to="/">{siteTitle}</StyledLink>
+          <Link to="/">{siteTitle}</Link>
         </h1>
         <div>
           <Button type="button" onClick={() => setDarkMode(!darkMode)}>
@@ -53,19 +53,19 @@ const Header = ({ siteTitle, darkMode, setDarkMode }) => {
       >
         <ul>
           <h2>
-            <StyledLink to="/blog" tabIndex={menuTabIndex}>
+            <Link to="/blog" tabIndex={menuTabIndex}>
               Blog
-            </StyledLink>
+            </Link>
           </h2>
           <h2>
-            <StyledLink to="/fun" tabIndex={menuTabIndex}>
+            <Link to="/fun" tabIndex={menuTabIndex}>
               Fun Stuff
-            </StyledLink>
+            </Link>
           </h2>
           <h2>
-            <StyledLink to="/music" tabIndex={menuTabIndex}>
+            <Link to="/music" tabIndex={menuTabIndex}>
               Music
-            </StyledLink>
+            </Link>
           </h2>
         </ul>
       </StyledNav>

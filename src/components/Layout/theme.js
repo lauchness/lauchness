@@ -23,24 +23,29 @@ const baseColors = {
   white: "#E3E4DB",
   lightPurple: "#AEA4BF",
   purple: "#8F6593",
+  outline: "#8F6593",
 }
 
 const lightMode = {
   copy: baseColors.black,
   background: baseColors.white,
-  altBackground: baseColors.lightGray
+  altBackground: baseColors.lightGray,
 }
 
 const darkMode = {
   copy: baseColors.white,
   background: baseColors.darkGray,
-  altBackground: baseColors.black
+  altBackground: baseColors.black,
 }
 
 const layers = {
   bottom: 0,
   mid: 50,
   top: 100,
+}
+
+const units = {
+  borderRadius: "4px",
 }
 
 export default dark => {
@@ -52,6 +57,7 @@ export default dark => {
     },
     font,
     layers,
+    units,
   }
 }
 

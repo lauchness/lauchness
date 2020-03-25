@@ -1,14 +1,8 @@
 import styled from "@emotion/styled"
-import { Link } from "gatsby"
 import { animated } from "react-spring"
 
 const linearBackground = props => `linear-gradient(.25turn, ${props.theme.color.black}, 5%, ${props.theme.color.darkGray})`
 
-export const StyledLink = styled(Link)`
-  font-weight: bold;
-  color: ${props => props.theme.color.white};
-  text-decoration: none;
-`
 export const Wrapper = styled.div`
   position: sticky;
   z-index: ${props => props.theme.layers.top};
