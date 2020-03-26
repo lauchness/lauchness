@@ -11,7 +11,7 @@ const Sun = ({ fill, bounce }) => {
   return (
     <animated.svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
+      viewBox="3 2 18 18"
       style={{ ...animateProps }}
     >
       <defs />

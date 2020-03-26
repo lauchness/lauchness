@@ -3,7 +3,7 @@ import React from "react"
 const Close = props => {
   const { fill } = props
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="2 2 20 20">
       <defs />
       <path
         fill={fill ? fill : "currentColor"}

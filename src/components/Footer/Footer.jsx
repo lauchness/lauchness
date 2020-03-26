@@ -33,7 +33,7 @@ const Footer = () => {
           </SocialLink>
         </li>
       </StyledSocialList>
-      © {new Date().getFullYear()}, Lauchlan Chisholm
+      <h3>© {new Date().getFullYear()} - Lauchlan Chisholm</h3>
     </StyledFooter>
   )
 }

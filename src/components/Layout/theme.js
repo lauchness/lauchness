@@ -21,12 +21,16 @@ const baseColors = {
   darkGray: "#282c34",
   lightGray: "#CDCDCD",
   white: "#E3E4DB",
-  lightPurple: "#AEA4BF",
-  purple: "#8F6593",
-  outline: "#8F6593",
+  pastelPurple: "#AEA4BF",
+  maximumPurple: "#822E81",
+  palatinatePurple: "#5F225E",
+  pompAndPower: "#8F6593",
   twitterBlue: "#1da1f2",
   linkedInBlue: "#0077b5",
   gitHubWhite: "#FFFFFF",
+  maastrichtBlue: "#0B132B",
+  midnightGreen: "#124559",
+  darkImperialBlue: "#0B4F6C",
 }
 
 const lightMode = {
@@ -57,7 +61,11 @@ export default dark => {
     color: {
       ...baseColors,
       ...dynamicColors,
-      linearBackground: `linear-gradient(.25turn, ${baseColors.black}, 5%, ${baseColors.darkGray})`,
+      brand1: baseColors.darkImperialBlue,
+      brand2: baseColors.maastrichtBlue,
+      button: baseColors.maximumPurple,
+      buttonHover: baseColors.palatinatePurple,
+      outline: baseColors.pompAndPower,
     },
     font,
     layers,

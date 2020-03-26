@@ -3,15 +3,16 @@ import styled from "@emotion/styled"
 export const StyledButton = styled.button`
   border: none;
   border-radius: 4px;
-  background-color: transparent;
-  padding: 0.1rem;
+  background-color: ${props => props.theme.color.button};
+  padding: 0.5rem;
   margin: 0 0.25rem;
   cursor: pointer;
-  box-shadow: 2px 2px rgba(0, 0, 0, 0.2);
+  color: ${props => props.theme.color.white};
+  font-size: 1rem;
 
   &:hover {
     outline: none;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: ${props => props.theme.color.buttonHover};
   }
 
   &:focus {
@@ -23,11 +24,10 @@ export const StyledButton = styled.button`
 
   &:active {
     transform: translate3d(0, 2px, 0);
-    box-shadow: none;
   }
 
   & svg {
-    min-height: 3rem;
-    min-width: 3rem;
+    min-height: 2rem;
+    min-width: 2rem;
   }
 `

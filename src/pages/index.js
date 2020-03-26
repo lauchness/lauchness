@@ -1,5 +1,4 @@
 import React from "react"
-import { Link } from "gatsby"
 import styled from "@emotion/styled"
 
 import Layout from "../components/Layout"
@@ -7,6 +6,7 @@ import Image from "../components/Image"
 import SEO from "../components/seo"
 import { StyledHeading } from "../components/Typography"
 import Card from "../components/Card"
+import Button from "../components/Button"
 import { mediaQuery } from "../utilities/style"
 
 const StyledBanner = styled.section`
@@ -17,7 +17,7 @@ const StyledBanner = styled.section`
   justify-content: center;
   align-items: center;
   padding: 1.5rem 1rem;
-  background: ${props => props.theme.color.purple};
+  background: ${props => props.theme.color.brand1};
   color: ${props => props.theme.color.white};
 
   ${mediaQuery()["medium"]} {
@@ -26,6 +26,19 @@ const StyledBanner = styled.section`
     & ${StyledHeading} {
       padding-right: 2rem;
     }
+  }
+`
+
+const Content = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
+
+  ${mediaQuery()["medium"]} {
+    display: grid;
+    grid-template:
+      "a a a" 1fr
+      "b c d" 1fr
+      "b c d" 1fr;
   }
 `
 
@@ -40,11 +53,40 @@ const IndexPage = () => (
         about lots of fun stuff. Enjoy!
       </StyledHeading>
     </StyledBanner>
-    <Card
-      title="test casrd"
-      copy="lorem ipsum sd;lfajsd;lfadsfjl;asdjfl;ajsdkl;fjadls;fj;ladskjf;laskdfjl;askdjf"
-    />
-    <Link to="/page-2/">Go to page 2</Link>
+    <Content>
+      <Card title="test card" gridArea="a">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis
+        nihil minus sed dignissimos sapiente voluptatem vel modi, nam nemo
+        perferendis quidem voluptate doloribus debitis dolorum adipisci numquam,
+        porro, aliquid amet?
+        <Button
+          onClick={() => {
+            alert("You Clicked Me")
+          }}
+          type="button"
+        >
+          Click Me
+        </Button>
+      </Card>
+      <Card title="test card" gridArea="b">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis
+        nihil minus sed dignissimos sapiente voluptatem vel modi, nam nemo
+        perferendis quidem voluptate doloribus debitis dolorum adipisci numquam,
+        porro, aliquid amet?
+      </Card>
+      <Card title="another one" gridArea="c">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis
+        nihil minus sed dignissimos sapiente voluptatem vel modi, nam nemo
+        perferendis quidem voluptate doloribus debitis dolorum adipisci numquam,
+        porro, aliquid amet?
+      </Card>
+      <Card title="another one" gridArea="d">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis
+        nihil minus sed dignissimos sapiente voluptatem vel modi, nam nemo
+        perferendis quidem voluptate doloribus debitis dolorum adipisci numquam,
+        porro, aliquid amet?
+      </Card>
+    </Content>
   </Layout>
 )
 

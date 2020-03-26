@@ -1,21 +1,30 @@
 import styled from "@emotion/styled"
-import { animated } from "react-spring"
+import { mediaQuery } from "../../utilities/style"
 
 export const StyledFooter = styled.footer`
   min-height: 10rem;
   width: 100%;
-  background-color: ${props => props.theme.color.darkGray};
+  background: ${props => props.theme.color.brand2};
   color: ${props => props.theme.color.white};
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  & > * {
+    margin: 25px 0;
+
+    ${mediaQuery()["medium"]} {
+      margin: 50px 0;
+    }
+  }
 `
 
 export const StyledSocialList = styled.ul`
   padding: 0;
   display: flex;
   width: 100%;
+  max-width: 600px;
   justify-content: space-evenly;
   align-items: center;
   list-style: none;

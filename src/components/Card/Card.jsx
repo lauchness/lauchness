@@ -1,15 +1,31 @@
-import React from "react";
+import React from "react"
+import { useSpring } from "react-spring"
 
-import { CardWrappper } from './Card.styled'
+import { CardWrappper } from "./Card.styled"
 
-const Card = props => {
-  const { copy, title } = props
+const Card = ({ children, title, gridArea }) => {
+  const [hoverProps, setHover] = useSpring(() => ({
+    transform: "scale(1)",
+  }))
+
   return (
-    <CardWrappper>
-      <h2>{title}</h2>
-      <p>{copy}</p>
+    <CardWrappper
+      style={{ gridArea, ...hoverProps }}
+      onMouseEnter={() =>
+        setHover({
+          transform: "scale(1.05)",
+        })
+      }
+      onMouseLeave={() =>
+        setHover({
+          transform: "scale(1)",
+        })
+      }
+    >
+      {title && <h2>{title}</h2>}
+      {children}
     </CardWrappper>
   )
-};
+}
 
-export default Card;
+export default Card
