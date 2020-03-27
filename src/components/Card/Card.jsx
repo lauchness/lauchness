@@ -1,22 +1,49 @@
 import React from "react"
+import { useTheme } from "emotion-theming"
+import { css, jsx } from "@emotion/core"
 import { useSpring } from "react-spring"
 
 import { CardWrappper } from "./Card.styled"
 
-const Card = ({ children, title, gridArea }) => {
+const Card = ({ children, title, gridArea, asLink }) => {
+  const {
+    color: { buttonHover, white, outline },
+  } = useTheme()
   const [hoverProps, setHover] = useSpring(() => ({
     transform: "scale(1)",
   }))
 
+  const Wrapper = CardWrappper(asLink)
+  const linkStyle = asLink
+    ? css`
+        &:hover {
+          outline: none;
+          background-color: ${buttonHover};
+          color: ${white};
+        }
+
+        &:focus {
+          outline-color: ${outline};
+          outline-offset: -2px;
+          outline-style: auto;
+          outline-width: 5px;
+        }
+      `
+    : css``
+
   return (
-    <CardWrappper
+    <Wrapper
+      to={asLink}
+      css={linkStyle}
       style={{ gridArea, ...hoverProps }}
       onMouseEnter={() =>
+        asLink &&
         setHover({
           transform: "scale(1.05)",
         })
       }
       onMouseLeave={() =>
+        asLink &&
         setHover({
           transform: "scale(1)",
         })
@@ -24,7 +51,7 @@ const Card = ({ children, title, gridArea }) => {
     >
       {title && <h2>{title}</h2>}
       {children}
-    </CardWrappper>
+    </Wrapper>
   )
 }
 

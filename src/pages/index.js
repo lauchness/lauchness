@@ -38,8 +38,8 @@ const Content = styled.div`
   ${mediaQuery()["medium"]} {
     display: grid;
     grid-template:
-      "a a a"
-      "b c d" 1fr / 33%;
+      "a a"
+      "b c" 1fr / 50%;
   }
 `
 
@@ -60,9 +60,13 @@ const IndexPage = () => {
       <Content>
         <Card title="Development" gridArea="a">
           <p>
-            I was introduced to programming during my post-secondary education
-            in a Numerical Analysis course, but there were a few detours before
-            I'd end up in my current career as a developer.
+            I'm a professional web developer who spends most of my work hours on
+            front end technologies in the React ecosystem.
+          </p>
+          <p>
+            However, I like to label myself as a full-stack developer and will
+            also be writing about and experimenting with Database Systems, and
+            Infrastructure as Code!
           </p>
           <br />
           <Button
@@ -80,28 +84,24 @@ const IndexPage = () => {
             Click Me
           </Button>
         </Card>
-        <Card title="test card" gridArea="b">
+        <Card title="Music" gridArea="b" asLink="/">
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Perspiciatis nihil minus sed dignissimos sapiente voluptatem vel
-            modi, nam nemo perferendis quidem voluptate doloribus debitis
-            dolorum adipisci numquam, porro, aliquid amet?
+            I'm a listener, improviser, composer, and performer interested in
+            many styles of music.
+          </p>
+          <p>
+            I plan to use this as a platform to share musical ideas, and develop
+            tools that musicians of all levels will find useful!
           </p>
         </Card>
-        <Card title="another one" gridArea="c">
+        <Card title="Fun and Education 🎉" gridArea="c">
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Perspiciatis nihil minus sed dignissimos sapiente voluptatem vel
-            modi, nam nemo perferendis quidem voluptate doloribus debitis
-            dolorum adipisci numquam, porro, aliquid amet?
+            I firmly believe learning can be one of the most enjoyable things we
+            do.
           </p>
-        </Card>
-        <Card title="another one" gridArea="d">
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Perspiciatis nihil minus sed dignissimos sapiente voluptatem vel
-            modi, nam nemo perferendis quidem voluptate doloribus debitis
-            dolorum adipisci numquam, porro, aliquid amet?
+            In time I hope to make all kinds of free content that engages and
+            educates people in the topics I love.
           </p>
         </Card>
       </Content>
