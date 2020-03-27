@@ -32,6 +32,9 @@ const baseColors = {
   maastrichtBlue: "#0B132B",
   midnightGreen: "#124559",
   darkImperialBlue: "#0B4F6C",
+  screaminGreen: "#87FF65",
+  yellowMunsell: "#F0C808",
+  seaBlue: "#086788",
 }
 
 const lightMode = {
@@ -67,6 +70,7 @@ export default dark => {
       brand2: baseColors.maastrichtBlue,
       button: baseColors.maximumPurple,
       buttonHover: baseColors.palatinatePurple,
+      buttonDisabled: baseColors.pastelPurple,
       outline: baseColors.pompAndPower,
     },
     font,

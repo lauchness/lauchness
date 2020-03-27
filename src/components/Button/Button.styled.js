@@ -25,6 +25,11 @@ export const StyledButton = styled.button`
     transform: translate3d(0, 2px, 0);
   }
 
+  &:disabled {
+    cursor: wait;
+    background-color: ${props => props.theme.color.buttonDisabled};
+  }
+
   & svg {
     min-height: 2rem;
     min-width: 2rem;
