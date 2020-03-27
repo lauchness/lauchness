@@ -2,7 +2,7 @@ import styled from "@emotion/styled"
 import { Link } from "gatsby"
 
 export const StyledLink = styled(Link)`
-  padding: 0.5rem;
+  padding: ${props => props.theme.units.gutter};
   font-weight: bold;
   color: ${props => props.theme.color.white};
   text-decoration: none;

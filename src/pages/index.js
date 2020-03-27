@@ -32,13 +32,13 @@ const StyledBanner = styled.section`
 const Content = styled.div`
   max-width: 800px;
   margin: 0 auto;
+  padding: ${props => props.theme.units.gutter};
 
   ${mediaQuery()["medium"]} {
     display: grid;
     grid-template:
-      "a a a" 1fr
-      "b c d" 1fr
-      "b c d" 1fr;
+      "a a a"
+      "b c d" 1fr / 33%;
   }
 `
 
@@ -49,16 +49,18 @@ const IndexPage = () => (
       <Image />
       <StyledHeading>
         Hello, I'm Lauchlan Chisholm. <br />
-        I'm a programmer and musician, and I hope to use this site to write
-        about lots of fun stuff. Enjoy!
+        I'm a programmer and musician, and I've built this web app to learn and
+        write about lots of fun stuff. Enjoy!
       </StyledHeading>
     </StyledBanner>
     <Content>
-      <Card title="test card" gridArea="a">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis
-        nihil minus sed dignissimos sapiente voluptatem vel modi, nam nemo
-        perferendis quidem voluptate doloribus debitis dolorum adipisci numquam,
-        porro, aliquid amet?
+      <Card title="Development" gridArea="a">
+        <p>
+          I was introduced to programming during my post-secondary education in
+          a Numerical Analysis course, but there were a few detours before I'd
+          end up in my current career as a developer.
+        </p>
+        <br />
         <Button
           onClick={() => {
             alert("You Clicked Me")
@@ -69,22 +71,28 @@ const IndexPage = () => (
         </Button>
       </Card>
       <Card title="test card" gridArea="b">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis
-        nihil minus sed dignissimos sapiente voluptatem vel modi, nam nemo
-        perferendis quidem voluptate doloribus debitis dolorum adipisci numquam,
-        porro, aliquid amet?
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis
+          nihil minus sed dignissimos sapiente voluptatem vel modi, nam nemo
+          perferendis quidem voluptate doloribus debitis dolorum adipisci
+          numquam, porro, aliquid amet?
+        </p>
       </Card>
       <Card title="another one" gridArea="c">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis
-        nihil minus sed dignissimos sapiente voluptatem vel modi, nam nemo
-        perferendis quidem voluptate doloribus debitis dolorum adipisci numquam,
-        porro, aliquid amet?
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis
+          nihil minus sed dignissimos sapiente voluptatem vel modi, nam nemo
+          perferendis quidem voluptate doloribus debitis dolorum adipisci
+          numquam, porro, aliquid amet?
+        </p>
       </Card>
       <Card title="another one" gridArea="d">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis
-        nihil minus sed dignissimos sapiente voluptatem vel modi, nam nemo
-        perferendis quidem voluptate doloribus debitis dolorum adipisci numquam,
-        porro, aliquid amet?
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis
+          nihil minus sed dignissimos sapiente voluptatem vel modi, nam nemo
+          perferendis quidem voluptate doloribus debitis dolorum adipisci
+          numquam, porro, aliquid amet?
+        </p>
       </Card>
     </Content>
   </Layout>

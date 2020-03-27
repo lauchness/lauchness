@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
   top: 0;
   z-index: ${props => props.theme.layers.top};
   margin: 0;
-  height: 5rem;
+  height: 4rem;
 `
 
 export const StyledHeader = styled.header`
@@ -21,7 +21,7 @@ export const StyledHeader = styled.header`
   align-items: center;
 
   & h1 {
-    margin: 0 0.5rem;
+    margin: 0 ${props => props.theme.units.gutter};
     max-width: 50%;
 
     ${mediaQuery(true)["small"]} {
@@ -33,6 +33,10 @@ export const StyledHeader = styled.header`
 export const ButtonWrapper = styled.div`
   display: flex;
   margin: 0 0.25rem;
+
+  & button {
+    margin: 0 0.25rem;
+  }
 `
 
 export const StyledNav = styled(animated.nav)`

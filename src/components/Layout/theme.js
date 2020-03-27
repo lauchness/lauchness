@@ -25,6 +25,7 @@ const baseColors = {
   maximumPurple: "#822E81",
   palatinatePurple: "#5F225E",
   pompAndPower: "#8F6593",
+  wintergreenDream: "#488286",
   twitterBlue: "#1da1f2",
   linkedInBlue: "#0077b5",
   gitHubWhite: "#FFFFFF",
@@ -53,6 +54,7 @@ const layers = {
 
 const units = {
   borderRadius: "4px",
+  gutter: "0.5rem",
 }
 
 export default dark => {
