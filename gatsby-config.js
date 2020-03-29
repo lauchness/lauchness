@@ -1,3 +1,6 @@
+const path = require("path")
+const here = (...p) => path.join(__dirname, ...p)
+
 module.exports = {
   siteMetadata: {
     title: `Lauchness`,
@@ -11,6 +14,31 @@ module.exports = {
       options: {
         name: `images`,
         path: `${__dirname}/src/images`,
+      },
+    },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        path: `${__dirname}/content/blog`,
+        name: "devBlog",
+      },
+    },
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        defaultLayouts: {
+          default: here("./src/components/Layout/index.js"),
+        },
+        extensions: [".mdx"],
+        gatsbyRemarkPlugins: [
+          {
+            resolve: "gatsby-remark-images",
+            options: {
+              backgroundColor: "#FFFFFF",
+              maxWidth: 800,
+            },
+          },
+        ],
       },
     },
     `gatsby-transformer-sharp`,
