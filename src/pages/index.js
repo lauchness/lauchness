@@ -30,7 +30,7 @@ const StyledBanner = styled.section`
   }
 `
 
-const Content = styled.div`
+export const StyledDiv = styled.div`
   max-width: 800px;
   margin: 0 auto;
   padding: ${props => props.theme.units.gutter};
@@ -57,7 +57,7 @@ const IndexPage = () => {
           and write about lots of fun stuff. Enjoy!
         </StyledHeading>
       </StyledBanner>
-      <Content>
+      <StyledDiv>
         <Card title="Development" gridArea="a">
           <p>
             I'm a professional web developer who spends most of my work hours on
@@ -104,7 +104,7 @@ const IndexPage = () => {
             educates people in the topics I love.
           </p>
         </Card>
-      </Content>
+      </StyledDiv>
     </Layout>
   )
 }

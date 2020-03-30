@@ -2,7 +2,6 @@ import styled from "@emotion/styled"
 import { mediaQuery } from "../../utilities/style"
 
 export const StyledFooter = styled.footer`
-  min-height: 10rem;
   width: 100%;
   background: ${props => props.theme.color.brand2};
   color: ${props => props.theme.color.white};

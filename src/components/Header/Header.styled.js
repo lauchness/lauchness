@@ -4,7 +4,7 @@ import { mediaQuery } from "../../utilities/style"
 
 export const Wrapper = styled.div`
   position: sticky;
-  top: 0;
+
   z-index: ${props => props.theme.layers.top};
   margin: 0;
   height: 4rem;
