@@ -51,8 +51,8 @@ const Header = ({ siteTitle, darkMode, setDarkMode }) => {
       <StyledNav aria-hidden={!menuOpen} style={{ ...navProps }}>
         <ul>
           <h2>
-            <Link to="/blog" tabIndex={menuTabIndex}>
-              Blog
+            <Link to="/development" tabIndex={menuTabIndex}>
+              Development Blog
             </Link>
           </h2>
           <h2>

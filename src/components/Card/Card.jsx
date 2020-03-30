@@ -1,11 +1,12 @@
 import React from "react"
+import Img from "gatsby-image"
 import { useTheme } from "emotion-theming"
 import { css, jsx } from "@emotion/core"
 import { useSpring } from "react-spring"
 
-import { CardWrappper } from "./Card.styled"
+import { CardWrappper, CardImageWrapper } from "./Card.styled"
 
-const Card = ({ children, title, gridArea, asLink }) => {
+const Card = ({ children, title, gridArea, asLink, banner }) => {
   const {
     color: { buttonHover, white, outline },
   } = useTheme()
@@ -50,6 +51,11 @@ const Card = ({ children, title, gridArea, asLink }) => {
       }
     >
       {title && <h2>{title}</h2>}
+      {banner && (
+        <CardImageWrapper>
+          <Img fluid={banner.childImageSharp.fluid} />
+        </CardImageWrapper>
+      )}
       {children}
     </Wrapper>
   )
