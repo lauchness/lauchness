@@ -14,7 +14,7 @@ import { ThemeProvider } from "emotion-theming"
 import { useDarkmode } from "../../utilities/hooks"
 import Header from "../Header"
 import Footer from "../Footer"
-import { ContentWrapper } from "./Layout.styled"
+import { ContentWrapper, StyledNoScript } from "./Layout.styled"
 import { globalCss } from "./GlobalCss"
 import getTheme from "./theme"
 
@@ -36,6 +36,21 @@ const Layout = ({ children }) => {
     <>
       <ThemeProvider theme={theme}>
         <Global styles={globalCss(theme)} />
+        <StyledNoScript>
+          <p>You have JavaScript disabled in your browser.</p>
+          <p>
+            This site relies on JavaScript for it's functionality and will not
+            behave optimally until{" "}
+            <a
+              href="https://www.google.com/search?q=enable+javascript&oq=enable+javascript"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              JavaScript has been enabled
+            </a>
+            .
+          </p>
+        </StyledNoScript>
         <Header
           siteTitle={data.site.siteMetadata.title}
           darkMode={darkMode}
