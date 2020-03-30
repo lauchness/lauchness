@@ -1,8 +1,19 @@
 import React from "react"
 import MDXRenderer from "gatsby-plugin-mdx/mdx-renderer"
 
+import Layout from "../components/Layout"
+import SEO from "../components/seo"
+import Content from "../components/Content"
+
 export default function Post({ data: { site, mdx } }) {
-  return <MDXRenderer>{mdx.body}</MDXRenderer>
+  return (
+    <Layout>
+      <SEO title="Home" />
+      <Content>
+        <MDXRenderer>{mdx.body}</MDXRenderer>
+      </Content>
+    </Layout>
+  )
 }
 
 export const pageQuery = graphql`
