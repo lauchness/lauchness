@@ -1,10 +1,8 @@
 import React from "react"
 import { useTheme } from "emotion-theming"
-import PropTypes from "prop-types"
 
 import { StyledFooter, StyledSocialList, SocialLink } from "./Footer.styled"
 import { GitHub, Twitter, LinkedIn } from "../Icons"
-import Button from "../Button"
 
 const Footer = () => {
   const {
