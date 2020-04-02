@@ -21,6 +21,11 @@ const StyledBanner = styled.section`
   background: ${props => props.theme.color.brand1};
   color: ${props => props.theme.color.white};
 
+  & button {
+    display: block;
+    margin-top: 1rem;
+  }
+
   ${mediaQuery()["medium"]} {
     flex-direction: row-reverse;
 
@@ -55,20 +60,6 @@ const IndexPage = () => {
           Hello, I'm Lauchlan Chisholm. <br />
           I'm a programmer and musician, and I've built this web app to learn
           and write about lots of fun stuff. Enjoy!
-        </StyledHeading>
-      </StyledBanner>
-      <StyledDiv>
-        <Card title="Development" gridArea="a">
-          <p>
-            I'm a professional web developer who spends most of my work hours on
-            front end technologies in the React ecosystem.
-          </p>
-          <p>
-            However, I like to label myself as a full-stack developer and will
-            also be writing about and experimenting with Database Systems, and
-            Infrastructure as Code!
-          </p>
-          <br />
           <Button
             onClick={() => {
               if (!showLauchstar) {
@@ -83,6 +74,19 @@ const IndexPage = () => {
           >
             Click Me
           </Button>
+        </StyledHeading>
+      </StyledBanner>
+      <StyledDiv>
+        <Card title="Development" gridArea="a" asLink="/development">
+          <p>
+            I'm a professional web developer who spends most of my work hours on
+            front end technologies in the React ecosystem.
+          </p>
+          <p>
+            However, I like to label myself as a full-stack developer and will
+            also be writing about and experimenting with Database Systems, and
+            Infrastructure as Code!
+          </p>
         </Card>
         <Card title="Music" gridArea="b" asLink="/">
           <p>
