@@ -32,6 +32,7 @@ export const StyledSocialList = styled.ul`
 export const SocialLink = styled.a`
   display: flex;
   padding: 0.25rem;
+  background-color: transparent;
   color: ${props => props.theme.color.lightGray};
   & svg {
     min-height: 3rem;

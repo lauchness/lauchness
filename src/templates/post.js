@@ -5,10 +5,11 @@ import Layout from "../components/Layout"
 import SEO from "../components/seo"
 import Content from "../components/Content"
 
-export default function Post({ data: { site, mdx } }) {
+export default function Post({ data: { mdx } }) {
+  const { fields } = mdx
   return (
     <Layout>
-      <SEO title="Home" />
+      <SEO title={fields.title} />
       <Content>
         <MDXRenderer>{mdx.body}</MDXRenderer>
       </Content>

@@ -136,6 +136,29 @@ export const globalCss = theme => css`
     font-size: 0.78405rem;
     line-height: 1.1;
   }
+  a {
+    color: ${theme.color.copy};
+    text-decoration: underline;
+    border: none;
+    border-radius: ${theme.units.borderRadius};
+
+    &:hover {
+      outline: none;
+      background-color: ${theme.color.hover};
+    }
+
+    &:focus {
+      outline-color: ${theme.color.outline};
+      outline-offset: -2px;
+      outline-style: auto;
+      outline-width: 5px;
+    }
+
+    &:active {
+      transform: translate3d(0, 2px, 0);
+      box-shadow: none;
+    }
+  }
   pre {
     margin-left: 0;
     margin-right: 0;

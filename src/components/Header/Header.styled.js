@@ -1,5 +1,7 @@
 import styled from "@emotion/styled"
 import { animated } from "react-spring"
+
+import { StyledLink } from "../Link"
 import { mediaQuery } from "../../utilities/style"
 
 export const Wrapper = styled.div`
@@ -27,6 +29,10 @@ export const StyledHeader = styled.header`
     ${mediaQuery(true)["small"]} {
       font-size: 1.7rem;
     }
+  }
+
+  & ${StyledLink} {
+    color: ${props => props.theme.color.white};
   }
 `
 
