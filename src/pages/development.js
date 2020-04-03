@@ -32,12 +32,11 @@ const Development = ({ data: { devBlog } }) => {
             ({
               node: {
                 id,
-                excerpt,
-                fields: { title, slug, banner },
+                fields: { title, slug, banner, description },
               },
             }) => (
               <Card key={id} title={title} asLink={slug} banner={banner}>
-                {excerpt}
+                {description}
               </Card>
             )
           )}
@@ -52,9 +51,9 @@ export default Development
 export const pageQuery = graphql`
   fragment PostsDetails on Mdx {
     id
-    excerpt(pruneLength: 250)
     fields {
       title
+      description
       slug
       banner {
         ...bannerImage260

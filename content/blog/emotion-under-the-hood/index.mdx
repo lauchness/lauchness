@@ -1,0 +1,57 @@
+---
+slug: emotion-under-the-hood
+title: "Emotion: Under the Hood"
+date: "2020-04-02"
+author: Lauchlan Chisholm
+description:
+  My coworker was asking if anyone knew a high level overview of how emotion works.
+  
+  After realizing I couldn't, I tried to figure it out!
+keywords:
+  - emotion
+  - React
+  - CSS
+banner: ./images/under-the-hood.jpg
+bannerCredit: "Photo from Pixabay"
+---
+
+Ok, so I went over to the Emotion slack (they’re really responsive and nice over there, definitely sign up if you’re interested), and spoke to one of the devs to wrap my head around this as best I could, and here’s what I put together.
+
+Instead of thinking of it just like a CSS processor like SASS, emotion has the added benefit of having JS on the client to dynamically update styles. So styles are shipped as strings/objects or created dynamically with functions, depending on the case.
+
+Something like this would be sent over statically in a string:
+
+```javascript
+const StyledDiv = styled.div`
+ margin: 0 auto;
+`
+```
+
+Whereas something like this would end up being shipped in JS and dynamically applied on the client, when it’s required:
+
+```javascript
+const StyledDiv = styled.div`
+ margin: 0 auto;
+ background: ${props => props.theme.colors.bg};
+`
+```
+
+If you’re using the babel plugin, most static styles should be precomputed at build time. But that doesn’t mean _class names_ it means _style descriptions_.
+
+Once you're about to render a component, emotion takes the received styles - which might be a combination of static and dynamic styles - and computes them. This results in a *single string of styles per definition* (either from `styled.element`` ` or `css`` `). This is what gets hashed and that is how emotion gets a unique class name. 
+
+Emotion then injects the created rules using CSSOM apis like insertRule.
+
+Some takeaways are that emotion will only ever insert actual styles when they are needed, when they know it’s going to be rendered momentarily. This render has a side-effect in rendering to cache inserted styles, so the same styles (_style description_) wont be inserted multiple times.
+
+Because every resolved style is a single string, everything stays in order. And as it results in a single, unique, class name, it solves the classic [.red.blue .blue.red problem](https://gomakethings.com/understanding-the-cascade-and-specificity-in-css/). Last style always wins, as they concat them, and insert as a single rule.
+
+However, there are some other important things to note. If you have a Header which receives props to determine color, you might end up with a green header and a second one which is hotpink. These will both have different _class names_, even if they’re the same Header because the _style definition_ resolves to a different string. The _class names_ aren’t tied to a component, but rather the _style definition_ being applied.
+
+This means that `&` - the class name - is computed lazily, at runtime on the client. It’s for this reason that sibling selectors (`& + &`) can be unsafe, or at the very least *unexpected*. Because you can’t guarantee the `&` (which is _style definition_ based, rather than component) will reference the correct class name.
+So, maybe counter-intuitively, you could have a `<div>` and an `<h1>` with the same class name if their style definitions were the same. Because emotion won’t duplicate styles.
+
+## tl;dr
+  1. styles that can be computed ahead of time (static) are computed ahead of time. Dynamic styles will be generated on the client.
+  2. All of the styles are resolved to unique strings, and class names are generated lazily when required.
+  3. The process of rendering styles to a component as a class name has a side effect to insert the generated style into cache and hashing it. This prevents duplicated style definitions, and keeps a cache for future renders.
