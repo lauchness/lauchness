@@ -4,9 +4,9 @@ title: "Emotion: Under the Hood"
 date: "2020-04-02"
 author: Lauchlan Chisholm
 description:
-  My coworker was asking if anyone knew a high level overview of how emotion works.
+  My coworker asked for a high level overview of how emotion works.
   
-  After realizing I couldn't, I tried to figure it out!
+  After realizing I didn't know, it was time figure it out!
 keywords:
   - emotion
   - React
@@ -15,32 +15,64 @@ banner: ./images/under-the-hood.jpg
 bannerCredit: "Photo from Pixabay"
 ---
 
-Ok, so I went over to the Emotion slack (they’re really responsive and nice over there, definitely sign up if you’re interested), and spoke to one of the devs to wrap my head around this as best I could, and here’s what I put together.
+Ok, so I went over to the Emotion slack (they’re really responsive and nice over there, definitely sign up if you’re interested), and spoke to [andarist](https://github.com/andarist) to wrap my head around this as best I could, and here’s what I put together.
 
-Instead of thinking of it just like a CSS processor like SASS, emotion has the added benefit of having JS on the client to dynamically update styles. So styles are shipped as strings/objects or created dynamically with functions, depending on the case.
+Emotion is a lot more than a CSS processor (an example of a CSS processor would be [SASS](https://sass-lang.com/)). Instead emotion has all of JavaScript to dynamically update styles _after_ a page has been loaded on the clent side.
 
-Something like this would be sent over statically in a string:
+Emotion has two ways to think about styles:
 
-```javascript
-const StyledDiv = styled.div`
- margin: 0 auto;
-`
+1. **Statically** - where the style definition can be computed ahead of time.
+
+ or 
+
+2. **Dynamically** where the style gets computed on the client.
+
+So for a given project, all of the styles are shipped as strings (static) and or objects (dynamic), depending on the case.
+
+Something like this would be sent over **statically** in a string:
+
+```jsx
+  const StyledDiv = styled.div`
+    margin: 0 auto;
+    background: url('https://commons.wikimedia.org/wiki/Main_Page#/media/File:Nolan_warthogs_(Phacochoerus_africanus_africanus)_juveniles_drinking.jpg')
+  `
 ```
 
-Whereas something like this would end up being shipped in JS and dynamically applied on the client, when it’s required:
+Whereas something like this would end up being shipped in an object and **dynamically** applied on the client with JavaScript:
 
-```javascript
-const StyledDiv = styled.div`
- margin: 0 auto;
- background: ${props => props.theme.colors.bg};
-`
+```jsx
+  const StyledDiv = styled.div`
+    margin: 0 auto;
+    background: ${props => props.theme.colors.bg};
+  `
 ```
 
-If you’re using the babel plugin, most static styles should be precomputed at build time. But that doesn’t mean _class names_ it means _style descriptions_.
+If you’re using the babel plugin, most static styles should be precomputed at build time. But that doesn’t mean **_class names_** it means **_style definitions_**. Let's take a moment to talk about this distinction.
 
-Once you're about to render a component, emotion takes the received styles - which might be a combination of static and dynamic styles - and computes them. This results in a *single string of styles per definition* (either from `styled.element`` ` or `css`` `). This is what gets hashed and that is how emotion gets a unique class name. 
 
-Emotion then injects the created rules using CSSOM apis like insertRule.
+## Style Definitions
+
+In Emotion, all of the styles we write in our `styled.<element>` or `css` are definitions. They _define_ what styles should be applied, whether that be a margin, transform, color, or [any other property](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Properties_Reference).
+
+Whether they can be computed statically beforehand, or need to be computed dynamically on the client, these definitions will end up as strings. With all of the properties concatenated together in a single string for each definition.
+
+## Class Names
+
+Once we have our definitions, they need to applied to components by making **[Style Rules](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleRule)**. 
+
+Emotion takes the string definition required (computing it for dynamic styles) and makes a new style rule - applying the _definition_ to a unique _class name_.
+
+This rendering process actually has an [idempotent](https://en.wikipedia.org/wiki/Idempotence#Computer_science_meaning)** side-effect which determines whether or not the new _definition_ is unique. 
+
+> The process is idempotent from the perspective of the developer implementing Emotion.
+
+Emotion will only create a new style rule - as a _class name_ - if the definition being applied is unique. Otherwise it will just reuse a pre-existing _class name_. This is an important distinction that we will discuss more shortly.
+
+Each one of these style rules - _class names_ - is hashed, cached, and injected using [CSSOM apis](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model).
+
+>>>>>> YOU WERE HERE
+
+This results in a *single string of styles per definition* (either from `styled.element`` ` or `css`` `).
 
 Some takeaways are that emotion will only ever insert actual styles when they are needed, when they know it’s going to be rendered momentarily. This render has a side-effect in rendering to cache inserted styles, so the same styles (_style description_) wont be inserted multiple times.
 
