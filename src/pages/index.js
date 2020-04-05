@@ -3,6 +3,7 @@ import styled from "@emotion/styled"
 import { useStaticQuery, graphql } from "gatsby"
 
 import Layout from "../components/Layout"
+import Banner from "../components/Banner"
 import Image from "../components/Image"
 import SEO from "../components/seo"
 import { StyledHeading } from "../components/Typography"
@@ -11,31 +12,6 @@ import Button from "../components/Button"
 import FlyingLauchstar from "../components/FlyingLauchstar"
 import { mediaQuery } from "../utilities/style"
 import Content from "../components/Content"
-
-const StyledBanner = styled.section`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  justify-content: center;
-  align-items: center;
-  padding: 1.5rem 1rem;
-  background: ${props => props.theme.color.brand1};
-  color: ${props => props.theme.color.white};
-
-  & button {
-    display: block;
-    margin-top: 1rem;
-  }
-
-  ${mediaQuery()["medium"]} {
-    flex-direction: row-reverse;
-
-    & ${StyledHeading} {
-      padding-right: 2rem;
-    }
-  }
-`
 
 export const StyledDiv = styled.div`
   margin: 0 auto;
@@ -66,7 +42,7 @@ const IndexPage = () => {
     <Layout>
       <SEO title="Home" />
       {showLauchstar && <FlyingLauchstar />}
-      <StyledBanner>
+      <Banner>
         <Image
           round={true}
           childImageSharp={lauchieFace.childImageSharp}
@@ -91,7 +67,7 @@ const IndexPage = () => {
             Click Me
           </Button>
         </StyledHeading>
-      </StyledBanner>
+      </Banner>
       <Content>
         <StyledDiv>
           <Card title="Development" gridArea="a" asLink="/development">

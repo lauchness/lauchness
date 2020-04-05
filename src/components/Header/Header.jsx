@@ -56,13 +56,13 @@ const Header = ({ siteTitle, darkMode, setDarkMode }) => {
             </Link>
           </h2>
           <h2>
-            <Link to="/fun" tabIndex={menuTabIndex}>
-              Fun Stuff
+            <Link to="/music" tabIndex={menuTabIndex}>
+              Music
             </Link>
           </h2>
           <h2>
-            <Link to="/music" tabIndex={menuTabIndex}>
-              Music
+            <Link to="/about" tabIndex={menuTabIndex}>
+              About Me
             </Link>
           </h2>
         </ul>
