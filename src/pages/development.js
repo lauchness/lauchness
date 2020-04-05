@@ -25,7 +25,7 @@ const Development = ({ data: { devBlog } }) => {
   return (
     <Layout>
       <SEO title="Page two" />
-      <Content>
+      <Content maxWidth={1200}>
         <StyledHeader>Development Blog</StyledHeader>
         <GridContainer>
           {devBlog.edges.map(

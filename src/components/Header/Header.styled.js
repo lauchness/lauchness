@@ -23,7 +23,7 @@ export const StyledHeader = styled.header`
   align-items: center;
 
   & h1 {
-    margin: 0 ${props => props.theme.units.gutter};
+    margin: 0 ${props => props.theme.units.getGutter()};
     max-width: 50%;
 
     ${mediaQuery(true)["small"]} {

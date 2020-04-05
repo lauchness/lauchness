@@ -9,7 +9,7 @@ export const CardWrappper = asLink => styled(
 )`
   display: flex;
   flex-direction: column;
-  margin: ${props => props.theme.units.gutter};
+  margin: ${props => props.theme.units.getGutter()};
   background-color: ${props => props.theme.color.altBackground};
   border-radius: 4px;
   padding: 1.5rem;
@@ -19,14 +19,4 @@ export const CardWrappper = asLink => styled(
   & ${StyledButton} {
     max-width: 8rem;
   }
-`
-
-export const CardImageWrapper = styled.div`
-  width: 100%;
-  max-height: 200px;
-  border-radius: 4px;
-  position: relative;
-  overflow: hidden;
-  object-fit: scale-down;
-  margin-bottom: ${props => props.theme.units.gutter};
 `

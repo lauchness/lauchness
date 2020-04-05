@@ -12,7 +12,7 @@ export const StyledNoScript = styled.noscript`
   right: 1rem;
   max-width: 500px;
   color: black;
-  padding: ${props => props.theme.units.gutter};
+  padding: ${props => props.theme.units.getGutter()};
   background-color: ${props => props.theme.color.warning};
   border-radius: 1rem;
   z-index: ${props => props.theme.layers.top};

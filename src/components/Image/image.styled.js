@@ -4,6 +4,6 @@ export const ImageWrapper = styled.div`
   width: 100%;
   max-width: 300px;
   position: relative;
-  border-radius: 50%;
+  border-radius: ${({round, theme}) => round ? '50%' : theme.units.borderRadius};
   overflow: hidden;
 `

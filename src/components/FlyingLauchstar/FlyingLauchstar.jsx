@@ -8,7 +8,7 @@ const FlyingLauchstar = () => {
   const props = useSpring({
     to: async (next, cancel) => {
       await next({
-        left: "50%",
+        left: "45%",
       })
       await next({
         top: "20%",

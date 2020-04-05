@@ -3,7 +3,7 @@ import { Link } from "gatsby"
 
 export const StyledLink = styled(Link)`
   background-color: transparent;
-  padding: ${props => props.theme.units.gutter};
+  padding: ${props => props.theme.units.getGutter()};
   font-weight: bold;
   color: ${props => props.theme.color.white};
   text-decoration: none;

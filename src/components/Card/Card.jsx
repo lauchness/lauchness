@@ -1,10 +1,10 @@
 import React from "react"
-import Img from "gatsby-image"
 import { useTheme } from "emotion-theming"
 import { css, jsx } from "@emotion/core"
 import { useSpring } from "react-spring"
 
-import { CardWrappper, CardImageWrapper } from "./Card.styled"
+import { CardWrappper } from './Card.styled'
+import Image from '../Image'
 
 const Card = ({ children, title, gridArea, asLink, banner }) => {
   const {
@@ -52,9 +52,10 @@ const Card = ({ children, title, gridArea, asLink, banner }) => {
     >
       {title && <h2>{title}</h2>}
       {banner && (
-        <CardImageWrapper>
-          <Img fluid={banner.childImageSharp.fluid} />
-        </CardImageWrapper>
+        <>
+        <Image childImageSharp={banner.childImageSharp} />
+        <br />
+        </>
       )}
       {children}
     </Wrapper>
