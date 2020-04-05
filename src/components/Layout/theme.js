@@ -73,6 +73,8 @@ export default dark => {
       button: baseColors.maximumPurple,
       buttonHover: baseColors.palatinatePurple,
       buttonDisabled: baseColors.pastelPurple,
+      codeBg: baseColors.pompAndPower,
+      codeColor: baseColors.white,
       warning: baseColors.yellowMunsell,
       outline: baseColors.pompAndPower,
     },

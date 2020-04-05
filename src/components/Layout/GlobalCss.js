@@ -165,18 +165,27 @@ export const globalCss = theme => css`
   strong {
     font-weight: bold;
   }
+  code {
+    background-color: ${theme.color.codeBg};
+    color: ${theme.color.white};
+    padding: 0 ${theme.units.getGutter(0.25)};
+  }
+  deckgo-highlight-code {
+    margin-bottom: ${theme.units.getGutter(4)};
+  }
   blockquote {
     display: flex;
     margin: 0;
     padding: 0;
     border-radius: ${theme.units.borderRadius};
-    background-color: ${theme.color.darkGray};
+    background-color: ${theme.color.black};
     color: ${theme.color.white};
     &::before {
+      flex-shrink: 0;
       content: "";
-      width: 4px;
+      width: 12px;
       margin-right: 1rem;
-      border-radius: ${theme.units.borderRadius};
+      border-radius: ${theme.units.borderRadius} 0 0 ${theme.units.borderRadius};
       background-color: ${theme.color.pompAndPower};
     }
   }

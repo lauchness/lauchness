@@ -15,15 +15,23 @@ banner: ./images/under-the-hood.jpg
 bannerCredit: "Photo from Pixabay"
 ---
 
-Ok, so I went over to the Emotion slack (they’re really responsive and nice over there, definitely [sign up if you’re interested in being part of the Emotion community](https://emotion-slack.now.sh/)), and spoke to [andarist](https://github.com/andarist) to wrap my head around this as best I could, and here’s what I put together.
+Being employed at [REDspace](https://www.redspace.com/), I get to work with some pretty fantastic people. We have a really positive company culture, and strongly promote learning and knowledge sharing. One of these coworkers - who was pivotal in landing me my gig at REDspace - [Luke Dewitt](https://github.com/whatadewitt) asked this in one of our Slack channels:
+
+> *anyone able to give me a high level overview of how emotion works? are the styles generated at run time? are they bundled with the build? how are they added to the page? I HAVE QUESTIONS*
+
+I was excited, because I'd been working with [Emotion](https://emotion.sh/docs/introduction) for a while, and it's become my default styling library when working in React. But when I went to respond, I came up short. I was shocked, **I didn't know how this library worked**.
+
+I clearly had two choices, either I _wallow in existential dread and question my worth as a developer_, or I just _go and figure it out_.
+
+So - after a bit wallowing - I went over to the Emotion slack (they’re really responsive and nice over there, definitely [sign up if you’re interested in being part of the Emotion community](https://emotion-slack.now.sh/)), and spoke to [andarist](https://github.com/andarist) to wrap my head around this as best I could, and here’s what I put together.
 
 Emotion is a lot more than a CSS processor (an example of a CSS processor would be [SASS](https://sass-lang.com/)). Instead emotion has all of JavaScript to dynamically update styles _after_ a page has been loaded on the clent side.
 
-Emotion has two ways styles are generated:
+Emotion has two ways of generating style definitions:
 
 1. **Statically** - where the style definition can be computed ahead of time.
 
-2. **Dynamically** where the style gets computed on the client.
+2. **Dynamically** where the style definition gets computed on the client.
 
 So for a given project, all of the styles are shipped as strings (static) and or objects (dynamic), depending on the case.
 
@@ -49,7 +57,7 @@ If you’re using the babel plugin, most static styles should be precomputed at 
 
 ## Style Definitions
 
-In Emotion, all of the styles we write in our `styled.<element>` or `css` are definitions. They _define_ what styles should be applied, whether that be a margin, transform, color, or [any other property](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Properties_Reference).
+In Emotion, all of the styles we write in our template literals (`styled.<element>` and `css`) or object styles are definitions. They _define_ what styles should be applied, whether that be a margin, transform, color, or [any other property](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Properties_Reference).
 
 Whether they can be computed statically beforehand, or need to be computed dynamically on the client, these definitions will end up as strings. With all of the properties concatenated together in a single string for each definition.
 
@@ -67,20 +75,29 @@ Emotion will only create a new style rule - as a _class name_ - if the definitio
 
 Each one of these style rules - _class names_ - is hashed, cached, and injected using [CSSOM apis](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model).
 
->>>>>> YOU WERE HERE
+## What does it all mean?
 
-This results in a *single string of styles per definition* (either from `styled.element`` ` or `css`` `).
+It means all of our styles result in a *single string of styles per definition*.
 
-Some takeaways are that emotion will only ever insert actual styles when they are needed, when they know it’s going to be rendered momentarily. This render has a side-effect in rendering to cache inserted styles, so the same styles (_style description_) wont be inserted multiple times.
+Because every resolved style is a single string, everything in the descriptions **stays in order**. And as it results in a single, unique, class name, solving the classic [.red.blue .blue.red problem](https://gomakethings.com/understanding-the-cascade-and-specificity-in-css/). The last style definition concatenated always wins, and the whole string gets inserted as a single rule.
 
-Because every resolved style is a single string, everything stays in order. And as it results in a single, unique, class name, it solves the classic [.red.blue .blue.red problem](https://gomakethings.com/understanding-the-cascade-and-specificity-in-css/). Last style always wins, as they concat them, and insert as a single rule.
+Also, Emotion only inserts these style rules when it knows a component relying on the style is going to be rendered momentarily. This is when the idempotent side-effect is run to cache inserted styles, so the same styles (_style description_) wont be inserted multiple times.
 
-However, there are some other important things to note. If you have a Header which receives props to determine color, you might end up with a green header and a second one which is hotpink. These will both have different _class names_, even if they’re the same Header because the _style definition_ resolves to a different string. The _class names_ aren’t tied to a component, but rather the _style definition_ being applied.
+All of this leads to a pretty solid system for styling apps. However, there are some properties of Emotion that aren't so obvious.
 
-This means that `&` - the class name - is computed lazily, at runtime on the client. It’s for this reason that sibling selectors (`& + &`) can be unsafe, or at the very least *unexpected*. Because you can’t guarantee the `&` (which is _style definition_ based, rather than component) will reference the correct class name.
-So, maybe counter-intuitively, you could have a `<div>` and an `<h1>` with the same class name if their style definitions were the same. Because emotion won’t duplicate styles.
+Remember, Emotion hashes style rules based on the definition, **not the component**. If you have a Header which receives props to determine its color, you might end up with a green header and a second one which is hotpink. These will both have different _class names_, even if they’re the same Header because the _style definition_ resolves to a different string. 
+
+> The _class names_ aren’t tied to a component, but rather the _style definition_ being applied.
+
+Another important thing to keep in mind when writing our style definitions is that `&` - the class name - is computed lazily, at runtime on the client. 
+
+For this reason, sibling selectors (`& + &`) can be unsafe, or at the very least *unexpected*. Because you can’t guarantee the `&` (which is _style definition_ based, rather than component) will reference the correct class name.
+
+So - maybe counter-intuitively - you could have a `<div>` and an `<h1>` using the same class name if their style definitions were the same. Because emotion won’t duplicate styles.
 
 ## tl;dr
-  1. styles that can be computed ahead of time (static) are computed ahead of time. Dynamic styles will be generated on the client.
+  1. Styles that can be computed ahead of time (static) are computed ahead of time. Dynamic styles will be generated on the client.
   2. All of the styles are resolved to unique strings, and class names are generated lazily when required.
   3. The process of rendering styles to a component as a class name has a side effect to insert the generated style into cache and hashing it. This prevents duplicated style definitions, and keeps a cache for future renders.
+
+I hope this overview gives the reader a better sense of how this fantastic library works. I know that Emotion has improved my experience as a developer, and helped me deliver higher quality apps. I hope it does the same for you!
