@@ -15,15 +15,13 @@ banner: ./images/under-the-hood.jpg
 bannerCredit: "Photo from Pixabay"
 ---
 
-Ok, so I went over to the Emotion slack (they’re really responsive and nice over there, definitely sign up if you’re interested), and spoke to [andarist](https://github.com/andarist) to wrap my head around this as best I could, and here’s what I put together.
+Ok, so I went over to the Emotion slack (they’re really responsive and nice over there, definitely [sign up if you’re interested in being part of the Emotion community](https://emotion-slack.now.sh/)), and spoke to [andarist](https://github.com/andarist) to wrap my head around this as best I could, and here’s what I put together.
 
 Emotion is a lot more than a CSS processor (an example of a CSS processor would be [SASS](https://sass-lang.com/)). Instead emotion has all of JavaScript to dynamically update styles _after_ a page has been loaded on the clent side.
 
-Emotion has two ways to think about styles:
+Emotion has two ways styles are generated:
 
 1. **Statically** - where the style definition can be computed ahead of time.
-
- or 
 
 2. **Dynamically** where the style gets computed on the client.
 
@@ -34,7 +32,7 @@ Something like this would be sent over **statically** in a string:
 ```jsx
   const StyledDiv = styled.div`
     margin: 0 auto;
-    background: url('https://commons.wikimedia.org/wiki/Main_Page#/media/File:Nolan_warthogs_(Phacochoerus_africanus_africanus)_juveniles_drinking.jpg')
+    background: blue;
   `
 ```
 
@@ -48,7 +46,6 @@ Whereas something like this would end up being shipped in an object and **dynami
 ```
 
 If you’re using the babel plugin, most static styles should be precomputed at build time. But that doesn’t mean **_class names_** it means **_style definitions_**. Let's take a moment to talk about this distinction.
-
 
 ## Style Definitions
 
@@ -64,7 +61,7 @@ Emotion takes the string definition required (computing it for dynamic styles) a
 
 This rendering process actually has an [idempotent](https://en.wikipedia.org/wiki/Idempotence#Computer_science_meaning)** side-effect which determines whether or not the new _definition_ is unique. 
 
-> The process is idempotent from the perspective of the developer implementing Emotion.
+> ** The process is idempotent from the perspective of the developer implementing Emotion.
 
 Emotion will only create a new style rule - as a _class name_ - if the definition being applied is unique. Otherwise it will just reuse a pre-existing _class name_. This is an important distinction that we will discuss more shortly.
 

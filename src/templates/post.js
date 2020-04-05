@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import MDXRenderer from "gatsby-plugin-mdx/mdx-renderer"
 
 import Layout from "../components/Layout"
@@ -7,6 +7,16 @@ import Content from "../components/Content"
 
 export default function Post({ data: { mdx } }) {
   const { fields } = mdx
+
+  useEffect(async () => {
+    if(window) {
+      const deckdeckgoHighlightCodeLoader = require("@deckdeckgo/highlight-code/dist/loader")
+    
+      await deckdeckgoHighlightCodeLoader.defineCustomElements(window);
+    }
+    
+  }, [])
+
   return (
     <Layout>
       <SEO title={fields.title} />

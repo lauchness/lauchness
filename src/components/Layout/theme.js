@@ -42,6 +42,9 @@ const lightMode = {
   background: baseColors.white,
   altBackground: baseColors.lightGray,
   hover: "rgba(0,0,0,0.2)",
+  codeBg: baseColors.pompAndPower,
+  codeColor: baseColors.white,
+  preBg: "rgba(0,0,0)"
 }
 
 const darkMode = {
@@ -49,6 +52,9 @@ const darkMode = {
   background: baseColors.darkGray,
   altBackground: baseColors.black,
   hover: "rgba(255,255,255,0.2)",
+  codeBg: baseColors.pompAndPower,
+  codeColor: baseColors.white,
+  preBg: "rgba(0,0,0)"
 }
 
 const layers = {
