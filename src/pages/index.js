@@ -67,7 +67,11 @@ const IndexPage = () => {
       <SEO title="Home" />
       {showLauchstar && <FlyingLauchstar />}
       <StyledBanner>
-        <Image round={true} childImageSharp={lauchieFace.childImageSharp} />
+        <Image
+          round={true}
+          childImageSharp={lauchieFace.childImageSharp}
+          maxWidth={300}
+        />
         <StyledHeading>
           Hello, I'm Lauchlan Chisholm. <br />
           I'm a programmer and musician, and I've built this web app to learn
