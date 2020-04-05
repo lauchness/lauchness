@@ -21,6 +21,7 @@
     "gatsby-plugin-page-creator": "^2.2.1",
     "gatsby-plugin-react-helmet": "^3.1.21",
     "gatsby-plugin-sharp": "^2.5.3",
+    "gatsby-plugin-twitter": "^2.2.1",
     "gatsby-remark-embedder": "^2.0.0",
     "gatsby-remark-highlight-code": "^1.2.0",
     "gatsby-remark-images": "^3.2.1",

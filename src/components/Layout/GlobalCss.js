@@ -180,6 +180,10 @@ export const globalCss = theme => css`
       background-color: ${theme.color.pompAndPower};
     }
   }
+  twitter-widget {
+    margin-left: auto;
+    margin-right: auto;
+  }
   @media only screen and (max-width: 480px) {
     html {
       font-size: 100%;
