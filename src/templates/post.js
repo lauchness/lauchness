@@ -1,4 +1,5 @@
 import React, { useEffect } from "react"
+import Markdown from "react-markdown"
 import MDXRenderer from "gatsby-plugin-mdx/mdx-renderer"
 
 import Layout from "../components/Layout"
@@ -9,7 +10,7 @@ import { PageHeading } from "../components/Typography"
 
 export default function Post({ data: { mdx } }) {
   const {
-    fields: { title, banner },
+    fields: { title, banner, bannerCredit, description },
   } = mdx
 
   useEffect(async () => {
@@ -23,11 +24,27 @@ export default function Post({ data: { mdx } }) {
   return (
     <Layout>
       <SEO title={title} />
-      <Content>
-        <PageHeading>{title}</PageHeading>
-        <Image childImageSharp={banner.childImageSharp} />
-        <MDXRenderer>{mdx.body}</MDXRenderer>
-      </Content>
+      <article>
+        <Content>
+          <PageHeading>{title}</PageHeading>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Image
+              childImageSharp={banner.childImageSharp}
+              alt={bannerCredit}
+            />
+            {bannerCredit && <Markdown>{bannerCredit}</Markdown>}
+          </div>
+          {description && <Markdown>{description}</Markdown>}
+          <hr />
+          <MDXRenderer>{mdx.body}</MDXRenderer>
+        </Content>
+      </article>
     </Layout>
   )
 }

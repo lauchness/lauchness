@@ -1,4 +1,5 @@
 import React from "react"
+import Markdown from "react-markdown"
 import styled from "@emotion/styled"
 
 import Layout from "../components/Layout"
@@ -36,7 +37,7 @@ const Development = ({ data: { devBlog } }) => {
               },
             }) => (
               <Card key={id} title={title} asLink={slug} banner={banner}>
-                {description}
+                {description && <Markdown>{description}</Markdown>}
               </Card>
             )
           )}

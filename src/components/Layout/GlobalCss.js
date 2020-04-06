@@ -8,6 +8,11 @@ export const globalCss = theme => css`
     box-sizing: border-box;
     overflow-y: scroll;
   }
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
       Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
@@ -172,6 +177,26 @@ export const globalCss = theme => css`
   }
   deckgo-highlight-code {
     margin-bottom: ${theme.units.getGutter(4)};
+  }
+  hr {
+    overflow: visible;
+    height: 0;
+    padding: 0;
+    border: none;
+    margin: ${theme.units.getGutter(4)} 0;
+    border-top: medium double ${theme.color.pompAndPower};
+    text-align: center;
+
+    &::after {
+      content: "§";
+      color: ${theme.color.pompAndPower};
+      display: inline-block;
+      position: relative;
+      top: -0.7em;
+      font-size: 1.5em;
+      padding: 0 0.25em;
+      background: ${theme.color.background};
+    }
   }
   blockquote {
     display: flex;

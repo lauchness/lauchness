@@ -4,10 +4,10 @@ import Img from "gatsby-image"
 
 import { ImageWrapper } from "./image.styled"
 
-const Image = ({childImageSharp, round, maxWidth}) => {
+const Image = ({childImageSharp, round, maxWidth, alt}) => {
   return (
     <ImageWrapper round={round} maxWidth={maxWidth}>
-      <Img {...childImageSharp} />
+      <Img {...childImageSharp} alt={alt} />
     </ImageWrapper>
   )
 }
