@@ -32,6 +32,17 @@ function createBlogPages({ data, actions }) {
   return null
 }
 
+function createMusicPages({ data, actions }) {
+  if (!data.edges.length) {
+    throw new Error("There are no posts!")
+  }
+
+  const { edges } = data
+  const { createPage } = actions
+  createPosts(createPage, edges)
+  return null
+}
+
 const createPages = async ({ actions, graphql }) => {
   const { data, errors } = await graphql(`
     fragment PostDetails on Mdx {
@@ -62,6 +73,16 @@ const createPages = async ({ actions, graphql }) => {
           }
         }
       }
+      musicBlog: allMdx(
+        filter: { fileAbsolutePath: { regex: "//content/music//" } }
+        sort: { order: DESC, fields: [frontmatter___date] }
+      ) {
+        edges {
+          node {
+            ...PostDetails
+          }
+        }
+      }
     }
   `)
 
@@ -69,10 +90,15 @@ const createPages = async ({ actions, graphql }) => {
     return Promise.reject(errors)
   }
 
-  const { devBlog } = data
+  const { devBlog, musicBlog } = data
 
   createBlogPages({
     data: devBlog,
+    actions,
+  })
+
+  createMusicPages({
+    data: musicBlog,
     actions,
   })
 }
@@ -93,6 +119,10 @@ function onCreateMdxNode({ node, getNode, actions }) {
 
   if (node.fileAbsolutePath.includes("content/blog/")) {
     slug = `/blog/${node.frontmatter.slug || slugify(parentNode.name)}`
+  }
+
+  if (node.fileAbsolutePath.includes("content/music/")) {
+    slug = `/music/${node.frontmatter.slug || slugify(parentNode.name)}`
   }
 
   createNodeField({

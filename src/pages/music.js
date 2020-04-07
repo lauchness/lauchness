@@ -21,14 +21,14 @@ const GridContainer = styled.div`
   }
 `
 
-const Development = ({ data: { devBlog } }) => {
+const Development = ({ data: { musicBlog } }) => {
   return (
     <Layout>
       <SEO title="Page two" />
       <Content maxWidth={1200}>
-        <StyledHeader>Development Blog</StyledHeader>
+        <StyledHeader>Music Articles</StyledHeader>
         <GridContainer>
-          {devBlog.edges.map(
+          {musicBlog.edges.map(
             ({
               node: {
                 id,
@@ -60,9 +60,9 @@ export const pageQuery = graphql`
       }
     }
   }
-  query all {
-    devBlog: allMdx(
-      filter: { fileAbsolutePath: { regex: "//content/blog//" } }
+  query allMusic {
+    musicBlog: allMdx(
+      filter: { fileAbsolutePath: { regex: "//content/music//" } }
       sort: { order: DESC, fields: [frontmatter___date] }
       limit: 24
     ) {

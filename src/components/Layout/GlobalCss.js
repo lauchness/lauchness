@@ -183,7 +183,8 @@ export const globalCss = theme => css`
     height: 0;
     padding: 0;
     border: none;
-    margin: ${theme.units.getGutter(4)} 0;
+    margin-top: ${theme.units.getGutter(4)};
+    margin-bottom: ${theme.units.getGutter(8)};
     border-top: medium double ${theme.color.pompAndPower};
     text-align: center;
 
