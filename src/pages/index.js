@@ -81,7 +81,7 @@ const IndexPage = () => {
               Infrastructure as Code!
             </p>
           </Card>
-          <Card title="Music" gridArea="b" asLink="/">
+          <Card title="Music" gridArea="b" asLink="/music">
             <p>
               I'm a listener, improviser, composer, and performer interested in
               many styles of music.

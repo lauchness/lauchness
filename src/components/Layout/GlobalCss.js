@@ -206,6 +206,24 @@ export const globalCss = theme => css`
     border-radius: ${theme.units.borderRadius};
     background-color: ${theme.color.black};
     color: ${theme.color.white};
+
+    a {
+      padding: 0 ${theme.units.getGutter(0.5)};
+      color: ${theme.color.white};
+
+      &:hover {
+        outline: none;
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+
+      &:focus {
+        outline-color: ${theme.color.outline};
+        outline-offset: -2px;
+        outline-style: auto;
+        outline-width: 5px;
+      }
+    }
+
     &::before {
       flex-shrink: 0;
       content: "";
