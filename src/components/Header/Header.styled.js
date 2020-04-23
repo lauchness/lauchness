@@ -21,6 +21,7 @@ export const StyledHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  overflow: hidden;
 
   & h1 {
     margin: 0 ${props => props.theme.units.getGutter()};

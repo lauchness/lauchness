@@ -10,7 +10,8 @@ import {
   ButtonWrapper,
 } from "./Header.styled"
 import Link from "../Link"
-import { Close, Hamburger, Moon, Sun } from "../Icons"
+import { Close, Hamburger, Moon, Sun, LauchnessLogo } from "../Icons"
+import { StyledHeading } from "../Typography"
 import Button from "../Button"
 
 const Header = ({ siteTitle, darkMode, setDarkMode }) => {
@@ -28,9 +29,10 @@ const Header = ({ siteTitle, darkMode, setDarkMode }) => {
   return (
     <Wrapper>
       <StyledHeader>
-        <h1>
-          <Link to="/">{siteTitle}</Link>
-        </h1>
+        <Link to="/">
+          <LauchnessLogo />
+          <StyledHeading style={{ margin: 0 }}>{siteTitle}</StyledHeading>
+        </Link>
         <ButtonWrapper>
           <Button type="button" onClick={() => setDarkMode(!darkMode)}>
             {darkMode ? (
