@@ -10,6 +10,7 @@ import { StyledHeading } from "../components/Typography"
 import Card from "../components/Card"
 import Button from "../components/Button"
 import FlyingLauchstar from "../components/FlyingLauchstar"
+import SwimmingMonster from "../components/SwimmingMonster"
 import { mediaQuery } from "../utilities/style"
 import Content from "../components/Content"
 
@@ -23,10 +24,32 @@ export const StyledDiv = styled.div`
       "a a"
       "b c" 1fr / 50%;
   }
+
+  & svg {
+    display: flex;
+    width: 5rem;
+  }
 `
 
+let clickIndex = 0
+
 const IndexPage = () => {
-  const [showLauchstar, setShowLauchstar] = useState(false)
+  const [showAnimation, setShowAnimation] = useState(null)
+
+  const showAnimationHandler = () => {
+    if (clickIndex++ % 2 === 0) {
+      setShowAnimation("lauchstar")
+      setTimeout(() => {
+        setShowAnimation(null)
+      }, 3000)
+    } else {
+      setShowAnimation("swimming-monster")
+      setTimeout(() => {
+        setShowAnimation(null)
+      }, 5000)
+    }
+  }
+
   const { lauchieFace } = useStaticQuery(graphql`
     query {
       lauchieFace: file(relativePath: { eq: "lauchie.png" }) {
@@ -38,10 +61,10 @@ const IndexPage = () => {
       }
     }
   `)
+  
   return (
     <Layout>
       <SEO title="Home" />
-      {showLauchstar && <FlyingLauchstar />}
       <Banner>
         <Image
           round={true}
@@ -54,18 +77,21 @@ const IndexPage = () => {
           and write about lots of fun stuff. Enjoy!
           <Button
             onClick={() => {
-              if (!showLauchstar) {
-                setShowLauchstar(true)
-                setTimeout(() => {
-                  setShowLauchstar(false)
-                }, 3000)
+              if (!showAnimation) {
+                showAnimationHandler()
               }
             }}
             type="button"
-            disabled={showLauchstar}
+            disabled={!!showAnimation}
           >
             Click Me
           </Button>
+          {showAnimation &&
+            (showAnimation === "lauchstar" ? (
+              <FlyingLauchstar />
+            ) : (
+              <SwimmingMonster />
+            ))}
         </StyledHeading>
       </Banner>
       <Content>

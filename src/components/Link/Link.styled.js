@@ -2,6 +2,9 @@ import styled from "@emotion/styled"
 import { Link } from "gatsby"
 
 export const StyledLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  width: max-content;
   background-color: transparent;
   padding: ${props => props.theme.units.getGutter()};
   font-weight: bold;
@@ -25,5 +28,11 @@ export const StyledLink = styled(Link)`
   &:active {
     transform: translate3d(0, 2px, 0);
     box-shadow: none;
+  }
+
+  & svg {
+    display: flex;
+
+    width: 3rem;
   }
 `
