@@ -29,7 +29,7 @@ elif [ -z "$1" ]; then
 else
     case $1 in
         prod)
-            DISTRIBUTION_ID='	E34KVGE1W0ZHAG'
+            DISTRIBUTION_ID='	E1N1YG3U6U0KN2'
             ;;
         *)
           ERR 2>/dev/null
