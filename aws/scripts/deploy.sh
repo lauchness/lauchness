@@ -20,10 +20,8 @@ function usage() {
 trap "usage \'$1\'" ERR
 
 function deploy_files() {
-    npm run build && 
-    npm run export &&
-    aws s3 sync ../../out/ s3://$BUCKETNAME --region $REGION --acl public-read &&
-    # for i in $(aws s3 ls s3://$BUCKETNAME | grep html | awk '{ print $NF }'); do aws s3 mv s3://$BUCKETNAME/$i s3://$BUCKETNAME/${i%.*} --acl public-read; done
+    yarn build && 
+    aws s3 sync ../../public/ s3://$BUCKETNAME --region $REGION --acl public-read
 }
 
 if [ ! -z "$BUCKETNAME" ]; then
@@ -32,12 +30,8 @@ elif [ -z "$1" ]; then
     ERR 2>/dev/null
 else
     case $1 in
-        stage)
-            BUCKETNAME='stage.redspace.com'
-            REGION='us-east-1'
-            ;;
         prod)
-            BUCKETNAME='www.redspace.com'
+            BUCKETNAME='www.lauchness.com'
             REGION='us-east-1'
             ;;
         *)

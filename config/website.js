@@ -1,7 +1,7 @@
 module.exports = {
   siteTitle: 'lauchness',
   siteTitleAlt: 'Personal Web App and Blog of Lauchlan Chisholm', // Alternative Site title for SEO
-  siteTitleShort: 'laucness', // short_name for manifest
+  siteTitleShort: 'lauchness', // short_name for manifest
   siteUrl: 'https://lauchness.com', // Domain of your site. No trailing slash!
   lang: 'en', // Language Tag on <html> element
   pathPrefix: '/',

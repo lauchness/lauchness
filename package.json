@@ -48,7 +48,9 @@
     "start": "yarn develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
+    "deploy:prod": "cd aws/scripts && ./deploy.sh prod && ./invalidate-cache.sh prod",
+    "cache:prod": "cd aws/scripts && ./invalidate-cache.sh prod"
   },
   "repository": {
     "type": "git",

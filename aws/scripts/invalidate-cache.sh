@@ -28,9 +28,6 @@ elif [ -z "$1" ]; then
     ERR 2>/dev/null
 else
     case $1 in
-        stage)
-            DISTRIBUTION_ID='E3M75UD5ED42PP'
-            ;;
         prod)
             DISTRIBUTION_ID='	E34KVGE1W0ZHAG'
             ;;
