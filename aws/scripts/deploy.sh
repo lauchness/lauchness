@@ -21,7 +21,7 @@ trap "usage \'$1\'" ERR
 
 function deploy_files() {
     yarn build && 
-    aws s3 sync ../../public/ s3://$BUCKETNAME --region $REGION --acl public-read
+    yarn gatsby-plugin-s3 deploy
 }
 
 if [ ! -z "$BUCKETNAME" ]; then
