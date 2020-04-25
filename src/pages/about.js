@@ -5,7 +5,6 @@ import Layout from "../components/Layout"
 import Image from "../components/Image"
 import SEO from "../components/seo"
 import { StyledHeading, PageHeading } from "../components/Typography"
-import Card from "../components/Card"
 import Banner from "../components/Banner"
 import Content from "../components/Content"
 

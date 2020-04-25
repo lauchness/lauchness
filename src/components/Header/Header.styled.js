@@ -43,6 +43,10 @@ export const ButtonWrapper = styled.div`
 
   & button {
     margin: 0 0.25rem;
+
+    & svg {
+      width: 2rem;
+    }
   }
 `
 

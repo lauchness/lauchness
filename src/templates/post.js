@@ -10,10 +10,6 @@ import Image from "../components/Image"
 import { PageHeading } from "../components/Typography"
 
 class Post extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
   async componentDidMount() {
     try {
       const deckdeckgoHighlightCodeLoader = require("@deckdeckgo/highlight-code/dist/loader")
