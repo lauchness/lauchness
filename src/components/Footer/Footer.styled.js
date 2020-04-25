@@ -35,8 +35,7 @@ export const SocialLink = styled.a`
   background-color: transparent;
   color: ${props => props.theme.color.lightGray};
   & svg {
-    min-height: 3rem;
-    min-width: 3rem;
+    width: 3rem;
   }
 
   &:hover {
