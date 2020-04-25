@@ -1,4 +1,5 @@
-import React, { useEffect } from "react"
+import React from "react"
+import { graphql } from "gatsby"
 import Markdown from "react-markdown"
 import MDXRenderer from "gatsby-plugin-mdx/mdx-renderer"
 
@@ -8,45 +9,56 @@ import Content from "../components/Content"
 import Image from "../components/Image"
 import { PageHeading } from "../components/Typography"
 
-export default function Post({ data: { mdx } }) {
-  const {
-    fields: { title, banner, bannerCredit, description },
-  } = mdx
+class Post extends React.Component {
+  constructor(props) {
+    super(props)
+  }
 
-  useEffect(async () => {
-    if (window) {
+  async componentDidMount() {
+    try {
       const deckdeckgoHighlightCodeLoader = require("@deckdeckgo/highlight-code/dist/loader")
 
       await deckdeckgoHighlightCodeLoader.defineCustomElements(window)
+    } catch (err) {
+      console.error(err)
     }
-  }, [])
+  }
 
-  return (
-    <Layout>
-      <SEO title={title} />
-      <article>
-        <Content>
-          <PageHeading>{title}</PageHeading>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Image
-              childImageSharp={banner.childImageSharp}
-              alt={bannerCredit}
-            />
-            {bannerCredit && <Markdown>{bannerCredit}</Markdown>}
-          </div>
-          {description && <Markdown>{description}</Markdown>}
-          <hr />
-          <MDXRenderer>{mdx.body}</MDXRenderer>
-        </Content>
-      </article>
-    </Layout>
-  )
+  render() {
+    const {
+      data: { mdx },
+    } = this.props
+    const {
+      fields: { title, banner, bannerCredit, description },
+    } = mdx
+
+    return (
+      <Layout>
+        <SEO title={title} />
+        <article>
+          <Content>
+            <PageHeading>{title}</PageHeading>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Image
+                childImageSharp={banner.childImageSharp}
+                alt={bannerCredit}
+              />
+              {bannerCredit && <Markdown>{bannerCredit}</Markdown>}
+            </div>
+            {description && <Markdown>{description}</Markdown>}
+            <hr />
+            <MDXRenderer>{mdx.body}</MDXRenderer>
+          </Content>
+        </article>
+      </Layout>
+    )
+  }
 }
 
 export const pageQuery = graphql`
@@ -68,3 +80,5 @@ export const pageQuery = graphql`
     }
   }
 `
+
+export default Post
