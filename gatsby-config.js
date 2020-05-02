@@ -5,9 +5,29 @@ const here = (...p) => path.join(__dirname, ...p)
 
 module.exports = {
   siteMetadata: {
-    title: `Lauchness`,
-    description: `The personal web app and blog of Lauchlan Chisholm`,
-    author: `@lauchness`,
+    siteUrl: config.siteUrl,
+    title: config.siteTitle,
+    twitterHandle: config.twitterHandle,
+    description: config.siteDescription,
+    keywords: [
+      "Software Engineer",
+      "Musician",
+      "JavaScript Training",
+      "Learn Music",
+    ],
+    canonicalUrl: config.siteUrl,
+    author: {
+      name: config.author,
+      minibio: config.minibio,
+    },
+    organization: {
+      name: config.organization,
+      url: config.siteUrl,
+    },
+    social: {
+      twitter: config.twitterHandle,
+      fbAppID: "",
+    },
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
