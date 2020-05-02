@@ -22,7 +22,7 @@ const AboutPage = () => {
   `)
   return (
     <Layout>
-      <SEO title="About Lauchlan Chisholm" />
+      <SEO title="Lauchness | About Lauchlan Chisholm" />
       <Banner>
         <PageHeading>Lauchlan Chisholm</PageHeading>
         <Image

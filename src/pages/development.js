@@ -24,7 +24,7 @@ const GridContainer = styled.div`
 const Development = ({ data: { devBlog } }) => {
   return (
     <Layout>
-      <SEO title="Developer Blog" />
+      <SEO title="Lauchness | Developer Blog" />
       <Content maxWidth={1200}>
         <StyledHeader>Development Blog</StyledHeader>
         <GridContainer>

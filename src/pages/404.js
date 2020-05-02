@@ -45,7 +45,7 @@ const NotFoundPage = () => {
   `)
   return (
     <Layout>
-      <SEO title="404: Not found" />
+      <SEO title="Lauchness | 404: Not found" />
       <StyledDiv>
         <h1>NOT FOUND</h1>
         <RotatingDiv>

@@ -61,10 +61,10 @@ const IndexPage = () => {
       }
     }
   `)
-  
+
   return (
     <Layout>
-      <SEO title="Home" />
+      <SEO />
       <Banner>
         <Image
           round={true}
