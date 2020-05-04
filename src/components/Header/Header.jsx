@@ -24,6 +24,7 @@ const Header = ({ siteTitle, darkMode, setDarkMode }) => {
 
   const navProps = useSpring({
     transform: `translate3d(0,${menuOpen ? "0" : "-100%"},0)`,
+    opacity: menuOpen ? 1 : 0
   })
 
   return (
