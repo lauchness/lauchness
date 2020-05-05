@@ -1,0 +1,29 @@
+---
+slug: how-to-use-reducer
+title: "How to useReducer"
+date: "2020-05-04"
+author: Lauchlan Chisholm
+description:
+  useReducer is a fantastic API for managing complex state in your components. 
+  This article focuses on when and how to implement the useReducer hook effectively.
+keywords:
+  - react
+  - hooks
+  - useReducer
+  - javascript
+banner: ./images/reduce.jpg
+bannerCredit: "Photo by [Markus Spiske](https://unsplash.com/@markusspiske) on [Unsplash](https://unsplash.com/s/photos/reduce"
+---
+
+When hooks were introduced in [React v16.8](https://reactjs.org/blog/2019/02/06/react-v16.8.0.html) we saw the React library move toward Functional Components by introducing an API which can accomplish all of the features that were previously only available within Class Components. This was another step in the journey toward implementing the [fiber architecture](https://github.com/acdlite/react-fiber-architecture).
+
+Hooks, as their name suggests, allow functional components to "hook" into the React lifecycle, so that they can manage and respond to state changes. Prior to the release of hooks, these features could only be accomplished by using a Class Component. Now that limitation a fading memory, and every signle peice of our UI can be the return value from our functional components.
+
+One of the more elusive hooks though, is `useReducer`. In the sense that this hook will manage state within in a component, it's very similar to `useState`, but what makes it different, and where and when should it be used?
+
+1. [Flux Architecture](#flux-architecture)
+2. [What's a Reducer?](#what-is-a-reducer)
+3. [Dispatching Actions](#dispatching-actions)
+3. [Implementing Tests](#implementing-tests)
+
+### Flux Architecture
