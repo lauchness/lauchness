@@ -171,9 +171,12 @@ export const globalCss = theme => css`
     font-weight: bold;
   }
   code {
+    font-size: 1.25rem;
     background-color: ${theme.color.codeBg};
     color: ${theme.color.white};
     padding: 0 ${theme.units.getGutter(0.25)};
+    border: 1px solid ${theme.color.copy};
+    border-radius: ${theme.units.borderRadius};
   }
   deckgo-highlight-code {
     margin-bottom: ${theme.units.getGutter(4)};
@@ -241,5 +244,9 @@ export const globalCss = theme => css`
     html {
       font-size: 100%;
     }
+  }
+  .markdown-link {
+    margin-left: ${theme.units.getGutter()};
+    padding: 0 ${theme.units.getGutter(0.5)};
   }
 `
