@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import { animated } from "react-spring"
 
-import { StyledLink } from "../Link"
+import { StyledLink } from "../Link/Link.styled"
 import { mediaQuery } from "../../utilities/style"
 
 export const Wrapper = styled.div`

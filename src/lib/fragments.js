@@ -46,3 +46,18 @@ export const bannerImage = graphql`
     }
   }
 `
+
+export const postsDetails = graphql`
+  fragment PostsDetails on Mdx {
+    id
+    fields {
+      title
+      description
+      slug
+      tags
+      banner {
+        ...bannerImage260
+      }
+    }
+  }
+`

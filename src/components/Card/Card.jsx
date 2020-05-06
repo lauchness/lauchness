@@ -2,11 +2,12 @@ import React from "react"
 import { useTheme } from "emotion-theming"
 import { css, jsx } from "@emotion/core"
 import { useSpring } from "react-spring"
+import isArray from 'lodash/isArray'
 
-import { CardWrappper } from './Card.styled'
+import { CardWrappper, StyledTagWrapper, StyledTag } from './Card.styled'
 import Image from '../Image'
 
-const Card = ({ children, title, gridArea, asLink, banner }) => {
+const Card = ({ children, title, gridArea, asLink, banner, tags }) => {
   const {
     color: { buttonHover, white, outline },
   } = useTheme()
@@ -51,12 +52,13 @@ const Card = ({ children, title, gridArea, asLink, banner }) => {
       }
     >
       {title && <h2>{title}</h2>}
-      {banner && (
-        <>
-        <Image childImageSharp={banner.childImageSharp} />
-        <br />
-        </>
-      )}
+      {banner && <Image childImageSharp={banner.childImageSharp} />}
+      {isArray(tags) && (
+          <StyledTagWrapper>
+            {tags.map(tag => <StyledTag>{tag}</StyledTag>)}
+          </StyledTagWrapper>
+        )
+      }
       {children}
     </Wrapper>
   )

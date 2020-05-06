@@ -1,4 +1,5 @@
 import styled from "@emotion/styled"
+import { mediaQuery } from "../../utilities/style"
 
 export const ContentWrapper = styled.div`
   width: 100%;
@@ -17,4 +18,14 @@ export const StyledNoScript = styled.noscript`
   border-radius: 1rem;
   z-index: ${props => props.theme.layers.top};
   border: 5px solid red;
+`
+
+export const GridContainer = styled.div`
+  display: grid;
+  ${mediaQuery()["small"]} {
+    grid-template-columns: repeat(2, 50%);
+  }
+  ${mediaQuery()["large"]} {
+    grid-template-columns: repeat(3, 33%);
+  }
 `

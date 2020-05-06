@@ -6,36 +6,30 @@ import Layout from "../components/Layout"
 import SEO from "../components/seo"
 import Content from "../components/Content"
 import Card from "../components/Card"
-import { mediaQuery } from "../utilities/style"
-
-const StyledHeader = styled.h1`
-  margin-top: 1rem;
-  width: 100%;
-  text-align: center;
-`
-
-const GridContainer = styled.div`
-  display: grid;
-  ${mediaQuery()["medium"]} {
-    grid-template-columns: repeat(3, 33%);
-  }
-`
+import { PageHeading } from "../components/Typography"
+import { GridContainer } from "../components/Layout/Layout.styled"
 
 const Development = ({ data: { devBlog } }) => {
   return (
     <Layout>
       <SEO title="Lauchness | Developer Blog" />
       <Content maxWidth={1200}>
-        <StyledHeader>Development Blog</StyledHeader>
+        <PageHeading>Development Blog</PageHeading>
         <GridContainer>
           {devBlog.edges.map(
             ({
               node: {
                 id,
-                fields: { title, slug, banner, description },
+                fields: { title, slug, banner, description, tags },
               },
             }) => (
-              <Card key={id} title={title} asLink={slug} banner={banner}>
+              <Card
+                key={id}
+                title={title}
+                asLink={slug}
+                banner={banner}
+                tags={tags}
+              >
                 {description && <Markdown>{description}</Markdown>}
               </Card>
             )
@@ -49,17 +43,6 @@ const Development = ({ data: { devBlog } }) => {
 export default Development
 
 export const pageQuery = graphql`
-  fragment PostsDetails on Mdx {
-    id
-    fields {
-      title
-      description
-      slug
-      banner {
-        ...bannerImage260
-      }
-    }
-  }
   query all {
     devBlog: allMdx(
       filter: { fileAbsolutePath: { regex: "//content/blog//" } }

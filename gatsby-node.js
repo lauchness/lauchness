@@ -60,6 +60,7 @@ const createPages = async ({ actions, graphql }) => {
         slug
         description
         date
+        tags
       }
     }
     query {
@@ -198,6 +199,12 @@ function onCreateMdxNode({ node, getNode, actions }) {
     name: "keywords",
     node,
     value: node.frontmatter.keywords || [],
+  })
+
+  createNodeField({
+    name: "tags",
+    node,
+    value: node.frontmatter.tags || [],
   })
 }
 

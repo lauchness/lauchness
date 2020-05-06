@@ -20,3 +20,22 @@ export const CardWrappper = asLink => styled(
     max-width: 8rem;
   }
 `
+
+export const StyledTagWrapper = styled.div`
+  margin-top: ${({ theme }) => theme.units.getGutter()};
+  display: flex;
+  flex-wrap: wrap;
+`
+
+export const StyledTag = styled.h4`
+  background-color: ${({ theme }) => theme.color.copy};
+  color: ${({ theme }) => theme.color.background};
+  border-radius: ${({ theme }) => theme.units.borderRadius};
+  padding: ${({ theme }) => theme.units.getGutter(0.5)};
+  margin: 0;
+  margin-top: ${({ theme }) => theme.units.getGutter(0.5)};
+  margin-right: ${({ theme }) => theme.units.getGutter(0.5)};
+  width: max-content;
+  flex: 0 0 auto;
+  text-transform: capitalize;
+`
