@@ -11,19 +11,73 @@ keywords:
   - hooks
   - useReducer
   - javascript
+tags:
+  - react
+  - real-world
+  - redux
 banner: ./images/reduce.jpg
 bannerCredit: "Photo by [Markus Spiske](https://unsplash.com/@markusspiske) on [Unsplash](https://unsplash.com/s/photos/reduce"
 ---
 
-When hooks were introduced in [React v16.8](https://reactjs.org/blog/2019/02/06/react-v16.8.0.html) we saw the React library move toward Functional Components by introducing an API which can accomplish all of the features that were previously only available within Class Components. This was another step in the journey toward implementing the [fiber architecture](https://github.com/acdlite/react-fiber-architecture).
+When the hooks API was introduced in [React v16.8](https://reactjs.org/blog/2019/02/06/react-v16.8.0.html) we saw the React library embrace the functional paradigm by providing Functional Components with the full set of features available in React. This was another step in the journey toward implementing the [fiber architecture](https://github.com/acdlite/react-fiber-architecture).
 
-Hooks, as their name suggests, allow functional components to "hook" into the React lifecycle, so that they can manage and respond to state changes. Prior to the release of hooks, these features could only be accomplished by using a Class Component. Now that limitation a fading memory, and every signle peice of our UI can be the return value from our functional components.
+Hooks - as their name suggests - allow functional components to "hook" into the React lifecycle, so that they can manage and respond to state changes. Prior to the release of hooks, these features could only be accomplished by using a Class Component. Now that limitation a fading memory, and every single peice of our UI can be the return value from our functional components.
 
-One of the more elusive hooks though, is `useReducer`. In the sense that this hook will manage state within in a component, it's very similar to `useState`, but what makes it different, and where and when should it be used?
+One of the more elusive hooks though is `useReducer`. In the sense that this hook will manage state within in a component, it's very similar to `useState`, but what makes it different, and where and when should it be used?
 
-1. [Flux Architecture](#flux-architecture)
-2. [What's a Reducer?](#what-is-a-reducer)
-3. [Dispatching Actions](#dispatching-actions)
-3. [Implementing Tests](#implementing-tests)
+The [React docs](https://reactjs.org/docs/hooks-reference.html#usereducer) have a solid outline of when we should prefer useReducer
+ 
+> useReducer is usually preferable to useState when you have complex state logic that involves multiple sub-values or when the next state depends on the previous one
 
-### Flux Architecture
+While this outline is absolutely accurate, I like to use real-world scenarios to understand how I should use something. Luckily, I pulled a ticket recently in my work which inspired me to write this article.
+
+Before understanding how to properly implement complex React state management, it's worth while to take a look at React state management in general.
+
+## State Management
+
+In React, all state is "unidirectional", and flows from the top down. Any component can maintain it's own state, but sharing state only happens by passing "props" down to child components. Understanding this behaviour is critical to understanding how React updates components.
+
+In the [Women of React](https://womenofreact.com/) 2020 conference, Maggie Appleton had a fantastic analogy of React behaving like a potatoe plant. Where the components are connected by the "props root network", and data is "water flowing down the plant".
+
+https://twitter.com/Mappletons/status/1254389176243535873
+
+So, when thinking about how React updates components, it makes sense that if a parent component updates, all of it's children will update too. It's possible for a child to [perform a check to test whether it's props have changed](https://reactjs.org/docs/react-api.html#reactmemo), but for the most part this is not required, and it's actually less expensive for components to re-render when their parents update.
+
+Because of this behaviour, it's important thst we keep our state close to where it's being used. In fact, coupling your business and rendering logic is one of the [fundamental concepts of React](https://reactjs.org/docs/introducing-jsx.html). 
+
+Keeping state "close to where it's being used" is usually pretty simple. A menu can store it's own `isOpen` state, a search input can store it's on `searchTerm` state. We only really need to start thinking about it when state is shared by multiple components. In these cases, it's best to just start climbing up the App (i.e. "potatoe plant") until you find a component that can pass the state down to all the components which require it. Kind of like finding a "closest common ancestor".
+
+Eventually, when building React applications, we're going to encounter scenarios where the shape of the state we're managing isn't simple. The state won't just be a string, or a number, or a boolean, but instead will be an object, with all kinds of properties and types. Here's some examples that come to mind: 
+* A video player
+```javascript
+{
+  isPlaying: false,
+  playbackSpeed: PLAYBACK_SPEED.NORMAL,
+  timestamp: 124,
+  volume: {
+    mute: false,
+    level: 85
+  }
+  ...
+}
+```
+
+* A schedule with filters
+```javascript
+{
+  events: [
+    {
+      id: 1001,
+      date: '02/03/2004',
+      title: 'The Big Pops'
+    },
+    {
+      id: 1001,
+      date: '07/11/1982',
+      title: 'Jimmy Cheese and the Giblets'
+    }
+  ],
+  currentFilter: FILTERS.SHOW_ALL,
+  isLoading: false,
+}
+```
