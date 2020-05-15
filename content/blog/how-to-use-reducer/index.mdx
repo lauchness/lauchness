@@ -14,7 +14,7 @@ keywords:
 tags:
   - react
   - real-world
-  - redux
+  - patterns
 banner: ./images/reduce.jpg
 bannerCredit: "Photo by [Markus Spiske](https://unsplash.com/@markusspiske) on [Unsplash](https://unsplash.com/s/photos/reduce"
 ---
@@ -45,41 +45,155 @@ So, when thinking about how React updates components, it makes sense that if a p
 
 Because of this behaviour, it's important thst we keep our state close to where it's being used. In fact, coupling your business and rendering logic is one of the [fundamental concepts of React](https://reactjs.org/docs/introducing-jsx.html). 
 
-Keeping state "close to where it's being used" is usually pretty simple. A menu can store it's own `isOpen` state, a search input can store it's on `searchTerm` state. We only really need to start thinking about it when state is shared by multiple components. In these cases, it's best to just start climbing up the App (i.e. "potatoe plant") until you find a component that can pass the state down to all the components which require it. Kind of like finding a "closest common ancestor".
+Keeping state "close to where it's being used" is usually pretty simple. A menu can store its own `isOpen` state, a search input can store its own `searchTerm` state. We only really need to start thinking about it when state is shared by multiple components. In these cases, it's best to just start climbing up the App (i.e. "potatoe plant") until you find a component that can pass the state down to all the components which require it. Kind of like finding a "closest common ancestor".
 
-Eventually, when building React applications, we're going to encounter scenarios where the shape of the state we're managing isn't simple. The state won't just be a string, or a number, or a boolean, but instead will be an object, with all kinds of properties and types. Here's some examples that come to mind: 
-* A video player
+Eventually, when building React applications, we're going to encounter scenarios where the shape of the state we're managing isn't simple. The state won't just be a string, or a number, or a boolean, but instead will be an object, with all kinds of properties and types. Here's one example that come to mind, a list of jobs with filters: 
 ```javascript
 {
-  isPlaying: false,
-  playbackSpeed: PLAYBACK_SPEED.NORMAL,
-  timestamp: 124,
-  volume: {
-    mute: false,
-    level: 85
+  list: [{...}, {...}],
+  description: 'javascript',
+  location: 'new york',
+  fullTime: false
+}
+```
+
+There are plenty of scenarios in our apps where the state of a component can be complex, like these examples. Once we encounter these situations, we'll want a more complex state management tool than just the useState hook.
+
+## Flux Pattern
+
+As we just discussed, all of the state in a React app flows down through the tree structure. This is all well and good in theory, but let's take a look at an example from our Job Filter scenario above.
+
+Imagine we're happily managing our job filter state within our video component, as things should be. But we get a ticket from on high which demands that we make our fullTime toggle it's own component. Well, now that new component will need to receive the `fullTime` state as a prop, AND it will need to be able to set that state. To accomplish that we'll need to pass down a callback function which can update the state.
+
+```jsx
+const JobFilter = () => {
+  const initialFullTime = false
+
+  const [fullTime, setFullTime] = useState(initialFullTime)
+
+  return (
+    <>
+      // some bunch of JSX
+      <FullTimeToggle fullTime={fullTime} setFullTime={setFullTime} />
+    </>
+  )
+}
+```
+
+So here, we can clearly see the fundamentals of the "Flux Pattern". Flux was developed at Facebook for managing the "unidirectional" data flow of React apps.
+
+In a Flux Pattern, there are three major parts: the dispatcher, the stores, and the views. While we're not implementing the flux library in the above example, the pattern has really worked it's way into the core API of hooks:
+- The __Store__ is the `fullTime` value
+- The __Dispatcher__ is the `setFullTime` callback function
+- The __View__ is the JSX which relies on the `fullTime` value to render, and can call the `setFullTime` function from a user interaction
+
+While this example is somewhat simplified, it clearly outlines the pattern. All of our data flows down from some store, and is modified by dispatching updates.
+
+## Implementing useReducer
+
+We know that our job filter actually has more than a `fullTime` state, it has a whole object full of state to manage. Rather than adding a bunch of different `useState` hooks, we can bring in and implement the `useReducer` hook. Before doing that though, let's compare the useReducer API to the useState API and try to find all those same peices of the Flux Pattern.
+
+If we put a `useReducer` hook into a component, it takes a reducer function and initial state as input, and returns state and a dispatch function. (You can pass an [init function](https://reactjs.org/docs/hooks-reference.html#lazy-initialization) to create your initial state lazily, but we'll ignore that for now).
+
+```jsx
+const JobFilter = () => {
+  const myReducer = (state, action) => {
+    // We'll write this shortly
   }
-  ...
+
+  const initialState = {
+    list: [],
+    description: '',
+    location: '',
+    fullTime: false
+  }
+
+  const [state, dispatch] = useReducer(myReducer, initialState)
+
+  const setFullTime = dispatch(/* we'll write this shortly */)
+
+  return (
+    <>
+      // some bunch of JSX
+      <FullTimeToggle fullTime={fullTime} setFullTime={setFullTime} />
+    </>
+  )
 }
 ```
 
-* A schedule with filters
+If we really take a close look at this API and the useState API, the only real difference is the use of a reducer function. Otherwise, we can break it down the same way:
+- The __Store__ is the `state` value
+- The __Dispatcher__ is the `dispatch` callback function
+- The __View__ is the JSX which relies on the `state` value to render, and can call the `dispatch` function from a user interaction
+
+I like to think of useState as a shortcut for a simple state in useReducer. So, reading the state is simple enough, we just access the property we want and use it. The question now is how do we update that state? In a useState hook, we would call the setState function with the new state we want. useReducer is really quite similar, only this time we'll be calling dispatch with what we call an `action`.
+
+Actions are just objects get consumed by reducers to produce a new state value. The common pattern for action objects is to have a `type` property so the reducer knows which slice of state to update, and a `payload` so the reducer knows what the new slice of state should be.
+
+In our job filter example we could have a `setFullTime` action that looks like this:
+
 ```javascript
-{
-  events: [
-    {
-      id: 1001,
-      date: '02/03/2004',
-      title: 'The Big Pops'
-    },
-    {
-      id: 1001,
-      date: '07/11/1982',
-      title: 'Jimmy Cheese and the Giblets'
-    },
-    ...
-  ],
-  currentFilter: FILTERS.SHOW_ALL,
-  isLoading: false,
-  ...
+const setFullTime = {
+  type: 'SET_FULL_TIME',
+  payload: true
 }
+
+dispatch(setFullTime)
 ```
+
+Now that we know what an action is, we need to understand how that gets consumed by a reducer. When the action is dispatched, a reducer function we define will receive the current state and the action we supply as inputs. The reducer function needs to do some work with these inputs (which we'll talk about in a moment), and return the new state.
+
+It's common for the reducer to use a [switch statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch) and define a case for every action type we want to use. We should always define a `default` case, where we just return the current state, that way if our reducer doesn't match the type from an action, it won't return `undefined`. If do this with the reducer from our example above, it could look like this.
+
+```javascript
+const myReducer = (state, action) => {
+    switch(action.type) {
+      default:
+        return state
+    }
+  }
+```
+ 
+But since we want to respond to our actions, we'll need to define cases for our actual action types.
+ 
+If we implement a case for the `setFullTime` action it could look like this.
+
+ ```javascript
+const myReducer = (state, action) => {
+    switch(action.type) {
+      case 'SET_FULL_TIME':
+        return {
+          ...state,
+          fullTime: action.payload
+        }
+      default:
+        return state
+    }
+  }
+```
+
+This is where the `useReducer` really starts to shine - we can define exactly how we want our state to update for any action we define. What's also great is that we can define actions for each state update so that we can take our complex state and manage it easily. 
+
+To make sure we don't introduce typos into our code, it's common to define the action types as constants and make __action creators__ for each one. An action creator is a function which returns one of our action object. For our `SET_FULL_TIME` action, we could do the following.
+
+```javascript
+// here's an action type, defined as a constant to prevent typos
+const SET_FULL_TIME = 'SET_FULL_TIME'
+
+// here's our action creator, which returns an action object for our `fullTime` value
+const setFullTime = fullTime => ({
+  type: SET_FULL_TIME,
+  payload: fullTime
+})
+
+// we could then use that action creator like this
+dispatch(setFullTime(true))
+```
+
+## tl;dr
+
+So now we can see the full picture. The useReducer takes a reducer function and an initial state, then it provides a state and a function to dispatch actions. The actions that get dispatched will get run through the reducer and return a new state.
+
+Once we grasp this behaviour, and how the flux pattern works with React, we can start to make sense of how to locate state in our React apps, and manage that state effectively. useReducer is an incredibly usefuly React API, and I hope this article encourages the React community to make more use of it!
+
+__[If you're interested in seeing some of this in action, I've built a codesandbox using the example outlined here, so go check it out and maybe even find your dream job!](https://codesandbox.io/s/how-to-usereducer-igiiy)__

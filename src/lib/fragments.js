@@ -55,6 +55,7 @@ export const postsDetails = graphql`
       description
       slug
       tags
+      date
       banner {
         ...bannerImage260
       }
