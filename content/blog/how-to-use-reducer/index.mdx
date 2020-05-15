@@ -19,11 +19,17 @@ banner: ./images/reduce.jpg
 bannerCredit: "Photo by [Markus Spiske](https://unsplash.com/@markusspiske) on [Unsplash](https://unsplash.com/s/photos/reduce"
 ---
 
+__Contents__
+- [State Management](#state-management)
+- [Flux Pattern](#flux-pattern)
+- [Implementing useReducer](#implementing-usereducer)
+- [tl;dr](#tldr)
+
 When the hooks API was introduced in [React v16.8](https://reactjs.org/blog/2019/02/06/react-v16.8.0.html) we saw the React library embrace the functional paradigm by providing Functional Components with the full set of features available in React. This was another step in the journey toward implementing the [fiber architecture](https://github.com/acdlite/react-fiber-architecture).
 
 Hooks - as their name suggests - allow functional components to "hook" into the React lifecycle, so that they can manage and respond to state changes. Prior to the release of hooks, these features could only be accomplished by using a Class Component. Now that limitation a fading memory, and every single peice of our UI can be the return value from our functional components.
 
-One of the more elusive hooks though is `useReducer`. In the sense that this hook will manage state within in a component, it's very similar to `useState`, but what makes it different, and where and when should it be used?
+One of the more elusive hooks though is __useReducer__. In the sense that this hook will manage state within in a component, it's very similar to useState, but what makes it different, and where and when should it be used?
 
 The [React docs](https://reactjs.org/docs/hooks-reference.html#usereducer) have a solid outline of when we should prefer useReducer
  
@@ -53,17 +59,18 @@ Eventually, when building React applications, we're going to encounter scenarios
   list: [{...}, {...}],
   description: 'javascript',
   location: 'new york',
-  fullTime: false
+  fullTime: false,
+  loading: false
 }
 ```
 
-There are plenty of scenarios in our apps where the state of a component can be complex, like these examples. Once we encounter these situations, we'll want a more complex state management tool than just the useState hook.
+This is one example, but there are plenty of scenarios in our apps where the state of a component can be complex. Once we encounter these situations, we'll want a state management tool that can step up to the task.
 
 ## Flux Pattern
 
 As we just discussed, all of the state in a React app flows down through the tree structure. This is all well and good in theory, but let's take a look at an example from our Job Filter scenario above.
 
-Imagine we're happily managing our job filter state within our video component, as things should be. But we get a ticket from on high which demands that we make our fullTime toggle it's own component. Well, now that new component will need to receive the `fullTime` state as a prop, AND it will need to be able to set that state. To accomplish that we'll need to pass down a callback function which can update the state.
+Imagine we're happily managing our `fullTime` state within our Job Filter component, as things should be. But we get a ticket from on high which demands that we make our toggle input a distinct component. Well, now that new component will need to receive the `fullTime` state as a prop, AND it will need to be able to manage that state. To accomplish that we'll need to pass down a callback function as a prop which can set the state in the parent, where it's been declared.
 
 ```jsx
 const JobFilter = () => {
@@ -91,9 +98,9 @@ While this example is somewhat simplified, it clearly outlines the pattern. All 
 
 ## Implementing useReducer
 
-We know that our job filter actually has more than a `fullTime` state, it has a whole object full of state to manage. Rather than adding a bunch of different `useState` hooks, we can bring in and implement the `useReducer` hook. Before doing that though, let's compare the useReducer API to the useState API and try to find all those same peices of the Flux Pattern.
+We know that our job filter actually has more than a `fullTime` state, it has a whole object full of state to manage. Rather than adding a bunch of distinct useState hooks, we can implement the useReducer hook. Before doing that though, let's compare the useReducer API to the useState API and try to find all those same peices of the Flux Pattern.
 
-If we put a `useReducer` hook into a component, it takes a reducer function and initial state as input, and returns state and a dispatch function. (You can pass an [init function](https://reactjs.org/docs/hooks-reference.html#lazy-initialization) to create your initial state lazily, but we'll ignore that for now).
+When we call a useReducer hook within a component, it takes a reducer function and an initial state as input. It then returns a state value and a dispatch function.
 
 ```jsx
 const JobFilter = () => {
@@ -105,7 +112,8 @@ const JobFilter = () => {
     list: [],
     description: '',
     location: '',
-    fullTime: false
+    fullTime: false,
+    loading: false
   }
 
   const [state, dispatch] = useReducer(myReducer, initialState)
@@ -121,14 +129,16 @@ const JobFilter = () => {
 }
 ```
 
+> Note: You can pass an [init function](https://reactjs.org/docs/hooks-reference.html#lazy-initialization) to create your initial state lazily, but we'll ignore that for now
+
 If we really take a close look at this API and the useState API, the only real difference is the use of a reducer function. Otherwise, we can break it down the same way:
 - The __Store__ is the `state` value
 - The __Dispatcher__ is the `dispatch` callback function
 - The __View__ is the JSX which relies on the `state` value to render, and can call the `dispatch` function from a user interaction
 
-I like to think of useState as a shortcut for a simple state in useReducer. So, reading the state is simple enough, we just access the property we want and use it. The question now is how do we update that state? In a useState hook, we would call the setState function with the new state we want. useReducer is really quite similar, only this time we'll be calling dispatch with what we call an `action`.
+I like to think of useState as a shortcut for a simple case of useReducer. So, reading the state is simple enough, we just access the property we want (i.e. `state.fulltime`) and use it. The question now is how do we update that state? In a useState hook, we would call the setState function with the new state we want. useReducer is really quite similar, only this time we'll be calling dispatch with what we call an __action__.
 
-Actions are just objects get consumed by reducers to produce a new state value. The common pattern for action objects is to have a `type` property so the reducer knows which slice of state to update, and a `payload` so the reducer knows what the new slice of state should be.
+Actions are objects get consumed by reducers to produce a new state value. The common pattern for action objects is to have a `type` property so the reducer knows which slice of state to update, and a `payload` so the reducer can manipulate that slice of state (e.g. inserting an item into an array, replacing a value, adding to a counter, etc.).
 
 In our job filter example we could have a `setFullTime` action that looks like this:
 
@@ -141,9 +151,9 @@ const setFullTime = {
 dispatch(setFullTime)
 ```
 
-Now that we know what an action is, we need to understand how that gets consumed by a reducer. When the action is dispatched, a reducer function we define will receive the current state and the action we supply as inputs. The reducer function needs to do some work with these inputs (which we'll talk about in a moment), and return the new state.
+Now that we know what an action is, we need to understand how that gets consumed by a reducer. When the action is dispatched, a reducer function we will write receives the current state and the action we supply as inputs. The reducer function needs to do some work with these inputs (which we'll talk about in a moment), and return the new state.
 
-It's common for the reducer to use a [switch statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch) and define a case for every action type we want to use. We should always define a `default` case, where we just return the current state, that way if our reducer doesn't match the type from an action, it won't return `undefined`. If do this with the reducer from our example above, it could look like this.
+It's common for the reducer to use a [switch statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch) and define a case for every action type we want to use. We should always define a `default` case, where we simply return the current state, that way if our reducer's switch statement doesn't have a case for the action passed in, it won't return `undefined` (this really shouldn't happen, but better safe than sorry). If do this with the reducer from our example above, it could look like this.
 
 ```javascript
 const myReducer = (state, action) => {
@@ -154,7 +164,7 @@ const myReducer = (state, action) => {
   }
 ```
  
-But since we want to respond to our actions, we'll need to define cases for our actual action types.
+Since we're all super cool, and have real state to manage, we will want to respond to our actions. To do that we'll need to define cases for our action types.
  
 If we implement a case for the `setFullTime` action it could look like this.
 
@@ -172,9 +182,11 @@ const myReducer = (state, action) => {
   }
 ```
 
-This is where the `useReducer` really starts to shine - we can define exactly how we want our state to update for any action we define. What's also great is that we can define actions for each state update so that we can take our complex state and manage it easily. 
+This is where the `useReducer` really starts to shine - we can define exactly how we want our state to update for any action we define. What's also great is that we can define actions for each state update so that we can take our complex state and manage it with less headache. 
 
 To make sure we don't introduce typos into our code, it's common to define the action types as constants and make __action creators__ for each one. An action creator is a function which returns one of our action object. For our `SET_FULL_TIME` action, we could do the following.
+
+> Note: if the [arrow function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) syntax seems odd, these arrow functions implicitly return the value following the arrow.
 
 ```javascript
 // here's an action type, defined as a constant to prevent typos
@@ -192,7 +204,7 @@ dispatch(setFullTime(true))
 
 ## tl;dr
 
-So now we can see the full picture. The useReducer takes a reducer function and an initial state, then it provides a state and a function to dispatch actions. The actions that get dispatched will get run through the reducer and return a new state.
+So now we can see the full picture. The useReducer takes a __reducer function__ and an __initial state__, it then returns a __state__ and a function to __dispatch__ actions. Any action objects that get dispatched will run through the reducer function to return a new state.
 
 Once we grasp this behaviour, and how the flux pattern works with React, we can start to make sense of how to locate state in our React apps, and manage that state effectively. useReducer is an incredibly usefuly React API, and I hope this article encourages the React community to make more use of it!
 
