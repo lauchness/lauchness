@@ -153,13 +153,19 @@ dispatch(setFullTime)
 
 Now that we know what an action is, we need to understand how that gets consumed by a reducer. When the action is dispatched, a reducer function we will write receives the current state and the action we supply as inputs. The reducer function needs to do some work with these inputs (which we'll talk about in a moment), and return the new state.
 
-It's common for the reducer to use a [switch statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch) and define a case for every action type we want to use. We should always define a `default` case, where we simply return the current state, that way if our reducer's switch statement doesn't have a case for the action passed in, it won't return `undefined` (this really shouldn't happen, but better safe than sorry). If do this with the reducer from our example above, it could look like this.
+It's common for the reducer to use a [switch statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch) and define a case for every action type we want to use. Originally, I had written that a useReducer should return the original state in the default case of our switch statement. However [@kv385191](https://twitter.com/kv385191) pointed out this tweet to me:
+
+https://twitter.com/dan_abramov/status/1093969005675773954
+
+This is a prime example of having "strong opinions, loosely held". I am convinced this makes sense. If our reducer runs across an `action.type` that we didn't define, then our code has hit a bug. So let's throw an error for the default state!
+
+If do this with the reducer from our example above, it could look like this.
 
 ```javascript
 const myReducer = (state, action) => {
     switch(action.type) {
       default:
-        return state
+        throw new Error(`Action type: ${action.type} was not accounted for in myReducer`)
     }
   }
 ```
@@ -177,7 +183,7 @@ const myReducer = (state, action) => {
           fullTime: action.payload
         }
       default:
-        return state
+        throw new Error(`Action type: ${action.type} was not accounted for in myReducer`)
     }
   }
 ```
