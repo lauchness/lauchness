@@ -27,7 +27,7 @@ __Contents__
 
 When the hooks API was introduced in [React v16.8](https://reactjs.org/blog/2019/02/06/react-v16.8.0.html) we saw the React library embrace the functional paradigm by providing Functional Components with the full set of features available in React. This was another step in the journey toward implementing the [fiber architecture](https://github.com/acdlite/react-fiber-architecture).
 
-Hooks - as their name suggests - allow functional components to "hook" into the React lifecycle, so that they can manage and respond to state changes. Prior to the release of hooks, these features could only be accomplished by using a Class Component. Now that limitation a fading memory, and every single peice of our UI can be the return value from our functional components.
+Hooks - as their name suggests - allow functional components to "hook" into the React lifecycle, so that they can manage and respond to state changes. Prior to the release of hooks, these features could only be accomplished by using a Class Component. Now that limitation a fading memory, and every single piece of our UI can be the return value from our functional components.
 
 One of the more elusive hooks though is __useReducer__. In the sense that this hook will manage state within in a component, it's very similar to useState, but what makes it different, and where and when should it be used?
 
@@ -41,17 +41,17 @@ Before understanding how to properly implement complex React state management, i
 
 ## State Management
 
-In React, all state is "unidirectional", and flows from the top down. Any component can maintain it's own state, but sharing state only happens by passing "props" down to child components. Understanding this behaviour is critical to understanding how React updates components.
+In React, all state is "unidirectional", and flows from the top down. Any component can maintain its own state, but sharing state only happens by passing "props" down to child components. Understanding this behaviour is critical to understanding how React updates components.
 
-In the [Women of React](https://womenofreact.com/) 2020 conference, Maggie Appleton had a fantastic analogy of React behaving like a potatoe plant. Where the components are connected by the "props root network", and data is "water flowing down the plant".
+In the [Women of React](https://womenofreact.com/) 2020 conference, Maggie Appleton had a fantastic analogy of React behaving like a potato plant. Where the components are connected by the "props root network", and data is "water flowing down the plant".
 
 https://twitter.com/Mappletons/status/1254389176243535873
 
 So, when thinking about how React updates components, it makes sense that if a parent component updates, all of it's children will update too. It's possible for a child to [perform a check to test whether it's props have changed](https://reactjs.org/docs/react-api.html#reactmemo), but for the most part this is not required, and it's actually less expensive for components to re-render when their parents update.
 
-Because of this behaviour, it's important thst we keep our state close to where it's being used. In fact, coupling your business and rendering logic is one of the [fundamental concepts of React](https://reactjs.org/docs/introducing-jsx.html). 
+Because of this behaviour, it's important that we keep our state close to where it's being used. In fact, coupling your business and rendering logic is one of the [fundamental concepts of React](https://reactjs.org/docs/introducing-jsx.html). 
 
-Keeping state "close to where it's being used" is usually pretty simple. A menu can store its own `isOpen` state, a search input can store its own `searchTerm` state. We only really need to start thinking about it when state is shared by multiple components. In these cases, it's best to just start climbing up the App (i.e. "potatoe plant") until you find a component that can pass the state down to all the components which require it. Kind of like finding a "closest common ancestor".
+Keeping state "close to where it's being used" is usually pretty simple. A menu can store its own `isOpen` state, a search input can store its own `searchTerm` state. We only really need to start thinking about it when state is shared by multiple components. In these cases, it's best to just start climbing up the App (i.e. "potato plant") until you find a component that can pass the state down to all the components which require it. Kind of like finding a "closest common ancestor".
 
 Eventually, when building React applications, we're going to encounter scenarios where the shape of the state we're managing isn't simple. The state won't just be a string, or a number, or a boolean, but instead will be an object, with all kinds of properties and types. Here's one example that come to mind, a list of jobs with filters: 
 ```javascript
@@ -98,7 +98,7 @@ While this example is somewhat simplified, it clearly outlines the pattern. All 
 
 ## Implementing useReducer
 
-We know that our job filter actually has more than a `fullTime` state, it has a whole object full of state to manage. Rather than adding a bunch of distinct useState hooks, we can implement the useReducer hook. Before doing that though, let's compare the useReducer API to the useState API and try to find all those same peices of the Flux Pattern.
+We know that our job filter actually has more than a `fullTime` state, it has a whole object full of state to manage. Rather than adding a bunch of distinct useState hooks, we can implement the useReducer hook. Before doing that though, let's compare the useReducer API to the useState API and try to find all those same pieces of the Flux Pattern.
 
 When we call a useReducer hook within a component, it takes a reducer function and an initial state as input. It then returns a state value and a dispatch function.
 
@@ -212,6 +212,6 @@ dispatch(setFullTime(true))
 
 So now we can see the full picture. The useReducer takes a __reducer function__ and an __initial state__, it then returns a __state__ and a function to __dispatch__ actions. Any action objects that get dispatched will run through the reducer function to return a new state.
 
-Once we grasp this behaviour, and how the flux pattern works with React, we can start to make sense of how to locate state in our React apps, and manage that state effectively. useReducer is an incredibly usefuly React API, and I hope this article encourages the React community to make more use of it!
+Once we grasp this behaviour, and how the flux pattern works with React, we can start to make sense of how to locate state in our React apps, and manage that state effectively. useReducer is an incredibly useful React API, and I hope this article encourages the React community to make more use of it!
 
 __[If you're interested in seeing some of this in action, I've built a codesandbox using the example outlined here, so go check it out and maybe even find your dream job!](https://codesandbox.io/s/how-to-usereducer-igiiy)__

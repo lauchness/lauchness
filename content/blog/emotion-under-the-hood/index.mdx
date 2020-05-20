@@ -18,6 +18,12 @@ banner: ./images/under-the-hood.jpg
 bannerCredit: "An old car | Photo from [Pixabay](https://www.pixabay.com)"
 ---
 
+__Contents__
+- [Style Definitions](#style-definitions)
+- [Class Names](#class-names)
+- [What Does it All Mean?](#what-does-it-all-mean)
+- [tl;dr](#tldr)
+
 Being employed at [REDspace](https://www.redspace.com/), I get to work with some pretty fantastic people. We have a really positive company culture, and strongly promote learning and knowledge sharing. One of these coworkers - who was pivotal in landing me my gig at REDspace - [Luke Dewitt](https://github.com/whatadewitt) asked this in one of our Slack channels:
 
 > *anyone able to give me a high level overview of how emotion works? are the styles generated at run time? are they bundled with the build? how are they added to the page? I HAVE QUESTIONS*
@@ -28,7 +34,7 @@ I clearly had two choices, either I _wallow in existential dread and question my
 
 So - after a bit wallowing - I went over to the Emotion slack (they’re really responsive and nice over there, definitely [sign up if you’re interested in being part of the Emotion community](https://emotion-slack.now.sh/)), and spoke to [andarist](https://github.com/andarist) to wrap my head around this as best I could, and here’s what I put together.
 
-Emotion is a lot more than a CSS processor (an example of a CSS processor would be [SASS](https://sass-lang.com/)). Instead emotion has all of JavaScript to dynamically update styles _after_ a page has been loaded on the clent side.
+Emotion is a lot more than a CSS processor (an example of a CSS processor would be [SASS](https://sass-lang.com/)). Instead emotion has all of JavaScript to dynamically update styles _after_ a page has been loaded on the client side.
 
 Emotion has two ways of generating style definitions:
 
@@ -86,7 +92,7 @@ Once we have our style definition objects, they need to applied to components. T
 
 Using the style definition object above as an example, the class name of the style rule would be computed by pre-pending the cache key to the object.name, and the content of the rule would be object.styles.
 
-When the Style Rule is ready to be inserted, an [idempotent](https://en.wikipedia.org/wiki/Idempotence#Computer_science_meaning) side-effect** is run, where the cache is checked to see if this hash already exists. Since the hash is computed from the string value of the styles being applied, this means Emotion can check style uniquness by just the hash value.
+When the Style Rule is ready to be inserted, an [idempotent](https://en.wikipedia.org/wiki/Idempotence#Computer_science_meaning) side-effect** is run, where the cache is checked to see if this hash already exists. Since the hash is computed from the string value of the styles being applied, this means Emotion can check style uniqueness by just the hash value.
 
 > ** Because resolving styles is idempotent Emotion can “safely” perform a side effect in React’s render ([which in general is a really bad idea](https://reactjs.org/docs/hooks-effect.html#example-using-classes))
 
