@@ -1,6 +1,5 @@
 import React from "react"
 import Markdown from "react-markdown"
-import styled from "@emotion/styled"
 
 import Layout from "../components/Layout"
 import SEO from "../components/seo"
@@ -12,7 +11,7 @@ import { GridContainer } from "../components/Layout/Layout.styled"
 const Development = ({ data: { devBlog } }) => {
   return (
     <Layout>
-      <SEO title="Lauchness | Developer Blog" />
+      <SEO title="Lauchness | Development Blog" />
       <Content maxWidth={1200}>
         <PageHeading>Development Blog</PageHeading>
         <GridContainer>

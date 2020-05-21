@@ -19,16 +19,15 @@ const SEO = ({
   postData,
   metaImage,
   isBlogPost,
-  frontmatter: postMeta = postData.childMarkdownRemark.frontmatter || {},
-  title = postMeta.title || config.siteTitle,
-  description = postMeta.plainTextDescription ||
-    postMeta.description ||
+  title = postData.title || config.siteTitle,
+  description = postData.plainTextDescription ||
+    postData.description ||
     seo.description,
   image = `${seo.canonicalUrl}${metaImage || defaultMetaImage}`,
-  url = postMeta.slug
-    ? `${seo.canonicalUrl}${postMeta.slug}`
+  url = postData.slug
+    ? `${seo.canonicalUrl}${postData.slug}`
     : seo.canonicalUrl,
-  datePublished = isBlogPost ? postMeta.datePublished : false,
+  datePublished = isBlogPost ? postData.date : false,
 }) => {
   const seoOrganization = {
     ...seo.organization,
@@ -105,17 +104,17 @@ const SEOWithQuery = props => {
 SEOWithQuery.propTypes = {
   isBlogPost: PropTypes.bool,
   postData: PropTypes.shape({
-    childMarkdownRemark: PropTypes.shape({
-      frontmatter: PropTypes.any,
-      excerpt: PropTypes.any,
-    }),
+    title: PropTypes.string,
+    description: PropTypes.string,
+    slug: PropTypes.string,
+    date: PropTypes.string
   }),
   metaImage: PropTypes.string,
 }
 
 SEOWithQuery.defaultProps = {
   isBlogPost: false,
-  postData: { childMarkdownRemark: {} },
+  postData: {},
   metaImage: null,
 }
 

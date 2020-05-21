@@ -1,6 +1,6 @@
 import React from "react"
 import { useTheme } from "emotion-theming"
-import { css, jsx } from "@emotion/core"
+import { css } from "@emotion/core"
 import { useSpring } from "react-spring"
 import isArray from 'lodash/isArray'
 

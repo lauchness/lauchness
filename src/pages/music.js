@@ -1,6 +1,5 @@
 import React from "react"
 import Markdown from "react-markdown"
-import styled from "@emotion/styled"
 
 import Layout from "../components/Layout"
 import SEO from "../components/seo"

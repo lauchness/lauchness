@@ -32,7 +32,7 @@ class Post extends React.Component {
     return (
       <Layout>
         <SEO
-          frontmatter={mdx.fields}
+          postData={mdx.fields}
           metaImage={get(mdx, "fields.banner.childImageSharp.fluid.src")}
           isBlogPost
         />
