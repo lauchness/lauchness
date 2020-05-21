@@ -121,6 +121,13 @@ module.exports = {
         bucketName: "www.lauchness.com",
       },
     },
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: "UA-167327511-1",
+        respectDNT: true
+      },
+    },
     `gatsby-plugin-offline`,
   ],
 }
