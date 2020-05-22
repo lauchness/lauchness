@@ -128,6 +128,7 @@ module.exports = {
         respectDNT: true
       },
     },
+    `gatsby-plugin-sitemap`,
     `gatsby-plugin-offline`,
   ],
 }
