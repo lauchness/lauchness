@@ -128,6 +128,13 @@ module.exports = {
         respectDNT: true
       },
     },
+    {
+      resolve: `gatsby-plugin-robots-txt`,
+      options: {
+        policy: [{ userAgent: '*', allow: '/' }]
+      }
+    },
+    
     `gatsby-plugin-sitemap`,
     `gatsby-plugin-offline`,
   ],
