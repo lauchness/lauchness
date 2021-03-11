@@ -30,6 +30,7 @@
     "gatsby-remark-embedder": "^2.0.0",
     "gatsby-remark-highlight-code": "^1.2.0",
     "gatsby-remark-images": "^3.2.1",
+    "gatsby-remark-prettier": "^1.0.0",
     "gatsby-source-filesystem": "^2.2.2",
     "gatsby-transformer-sharp": "^2.4.3",
     "lodash": "^4.17.15",

@@ -81,7 +81,17 @@ module.exports = {
               removeAccents: true,
               isIconAfterHeader: true,
             },
-          }
+          },
+          {
+            resolve: `gatsby-remark-prettier`,
+            options: {
+              // Look for local .prettierrc file.
+              // The same as `prettier.resolveConfig(process.cwd())`
+              usePrettierrc: true,
+              // Overwrite prettier options, check out https://prettier.io/docs/en/options.html
+              prettierOptions: {},
+            },
+          },
         ],
       },
     },
@@ -125,16 +135,16 @@ module.exports = {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         trackingId: "UA-167327511-1",
-        respectDNT: true
+        respectDNT: true,
       },
     },
     {
       resolve: `gatsby-plugin-robots-txt`,
       options: {
-        policy: [{ userAgent: '*', allow: '/' }]
-      }
+        policy: [{ userAgent: "*", allow: "/" }],
+      },
     },
-    
+
     `gatsby-plugin-sitemap`,
     `gatsby-plugin-offline`,
   ],
