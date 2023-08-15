@@ -1,5 +1,3 @@
-[CV](https://www.lauchness.com/) &bull; [Twitter](https://twitter.com/lauchness1)
-
 <table align="center">
   <tr>
     <td width="100%" align="center">
