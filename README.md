@@ -4,7 +4,7 @@
   <tr>
     <td width="100%" align="center">
       <a href="https://wbnns.com/">
-        <img src="https://github.com/lauchness/lauchness/raw/master/pretty.gif">
+        <img src="https://github.com/lauchness/lauchness/raw/master/images/pretty.gif">
       </a>
     </td>
   </tr>
