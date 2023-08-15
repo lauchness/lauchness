@@ -2,7 +2,7 @@
   <tr>
     <td width="100%" align="center">
       <a href="https://wbnns.com/">
-        <img src="https://github.com/lauchness/lauchness/raw/master/images/pretty.gif">
+        <img src="https://github.com/lauchness/lauchness/raw/main/images/pretty.gif">
       </a>
     </td>
   </tr>
