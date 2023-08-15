@@ -31,6 +31,12 @@ img {
   margin: 2rem 0;
 }
 
+.image-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
 ul {
   list-style: none;
   display: flex;
@@ -45,15 +51,19 @@ a {
 
 @keyframes swim {
   0% {
-    transform: translatex(0);
+    transform: translatex(-200vw);
   }
   100% {
-    transform: translatex(200vw);
+    transform: translatex(0);
   }
 }
 
 .swim {
-  animation: swim 20s ease-in-out forwards;
+  animation: swim 4s ease-in-out 1 forwards;
+}
+
+.swim-out {
+  animation: swim 4s ease-in-out 1 reverse forwards;
 }
 
 @media (prefers-color-scheme: dark) {
