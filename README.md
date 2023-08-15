@@ -1,4 +1,4 @@
-<table align="center">
+<table align="center" width="100%">
   <tr>
     <td width="100%" align="center">
       <a href="https://wbnns.com/">
