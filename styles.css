@@ -59,11 +59,11 @@ a {
 }
 
 .swim {
-  animation: swim 4s ease-in-out 1 forwards;
+  animation: swim 2s ease-in-out 1 forwards;
 }
 
 .swim-out {
-  animation: swim 4s ease-in-out 1 reverse forwards;
+  animation: swim 2s ease-in-out 1 reverse forwards;
 }
 
 @media (prefers-color-scheme: dark) {
